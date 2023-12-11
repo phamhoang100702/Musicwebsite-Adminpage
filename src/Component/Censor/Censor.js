@@ -1,11 +1,7 @@
-import React from "react"
+import React from "react";
 
-const Censor = ()=>{
-    return (
-        <>
-            Censor
-        </>
-    )
-}
+const Censor = () => {
+  return <>Censor</>;
+};
 
-export default Censor
+export default Censor;

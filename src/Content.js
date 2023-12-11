@@ -1,12 +1,12 @@
-import { Route,Routes } from "react-router-dom"
-import AllRoutes from "./Routes/Routes/Router"
+import { Route, Routes } from "react-router-dom";
+import AllRoutes from "./Routes/Routes/Router";
 
-const ContentAdmin = ()=>{
-    return (
-        <>
-            <AllRoutes/>
-        </>
-    )
-}
+const ContentAdmin = () => {
+  return (
+    <>
+      <AllRoutes />
+    </>
+  );
+};
 
-export default ContentAdmin
+export default ContentAdmin;
