@@ -43,7 +43,14 @@ export const Admin = () => {
             items={MenuSiderbar}
           />
         </Sider>
-        <Layout>
+        <Layout
+          style={{
+            background: "#f0f2f5",
+
+            overflow: "auto",
+            maxHeight: "100vh",
+          }}
+        >
           <Header
             style={{
               padding: 0,
@@ -63,8 +70,8 @@ export const Admin = () => {
               }}
             ></Breadcrumb>
             <ContentAdmin />
+            <FooterApp />
           </Content>
-          <FooterApp />
         </Layout>
       </Layout>
     </>

@@ -6,13 +6,14 @@ import {
   CensorManage,
 } from "../../Component/Admin/Content/CensorContent/CensorManage";
 import { SongManage } from "../../Component/Admin/Content/SongContent/SongManage";
-import { Statistical } from "../../Component/Admin/Content/Statistical";
+import { StatisticalDetails } from "../../Component/Admin/Content/StatisticalContent/StatisticalDetails";
 import { Admin } from "../../Component/Admin";
 import { OverviewCensor } from "../../Component/Admin/Content/CensorContent/overview";
 import { OverviewUser } from "../../Component/Admin/Content/UserContent/overview";
 import { OverviewSinger } from "../../Component/Admin/Content/SingerContent/overview";
 import { OverviewSong } from "../../Component/Admin/Content/SongContent/overview";
 import { Payment } from "../../Component/Admin/Content/PaymentContent/Payment";
+import { StatisticalMain } from "../../Component/Admin/Content/StatisticalContent";
 
 const RoutesConfig = [
   {
@@ -38,7 +39,7 @@ const RoutesConfig = [
 
   {
     path: "/admin-statistical",
-    element: <Statistical />,
+    element: <StatisticalMain />,
   },
   {
     path: "/admin-payment",
