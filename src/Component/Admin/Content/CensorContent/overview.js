@@ -3,8 +3,12 @@ import Search from "antd/es/input/Search";
 
 import React from "react";
 import ListCensor from "./ListCensor";
+import FormAddNewCensor from "./FormAddNewCencor";
+import { useDispatch } from "react-redux";
+import { openDrawer } from "../../../../redux/actions/showDrawer";
 
 const onSearch = (value, _e, info) => console.log(info?.source, value);
+
 const items = [
   {
     key: "1",
@@ -24,6 +28,11 @@ const items = [
   },
 ];
 export const OverviewCensor = () => {
+  const handleAddNewCensor = () => {
+    dispatch(openDrawer());
+  };
+
+  const dispatch = useDispatch();
   return (
     <Card
       type="inner"
@@ -42,7 +51,10 @@ export const OverviewCensor = () => {
               }}
             />
           </Space>
-          <Button type="primary">Add new</Button>
+          <Button type="primary" onClick={handleAddNewCensor}>
+            Add new
+          </Button>
+          <FormAddNewCensor />
         </div>
       }
     >

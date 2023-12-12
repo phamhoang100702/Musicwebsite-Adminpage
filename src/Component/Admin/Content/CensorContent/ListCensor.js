@@ -1,6 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Button, List, Skeleton } from "antd";
-import ShowInfoModal from "../../../Modal/ShowInfoModal";
+import {
+  Avatar,
+  Button,
+  List,
+  Modal,
+  Popconfirm,
+  Skeleton,
+  Space,
+  Typography,
+} from "antd";
+import ShowInfoModal from "../../../../styles/Modal/ShowInfoModal";
+import { QuestionCircleOutlined } from "@ant-design/icons";
+import { PopDelete } from "../../../../styles/Popconfirm/PopDelete";
+import { useDispatch } from "react-redux";
+import { openModal } from "../../../../redux/actions/showModal";
 const count = 8;
 const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
 const ListCensor = () => {
@@ -8,6 +21,9 @@ const ListCensor = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [list, setList] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     fetch(fakeDataUrl)
       .then((res) => res.json())
@@ -54,31 +70,37 @@ const ListCensor = () => {
         <Button onClick={onLoadMore}>loading more</Button>
       </div>
     ) : null;
+
+  const showModal = (item) => {
+    setSelectedItem(item);
+    dispatch(openModal());
+    console.log("item selected: >>>", item);
+  };
   return (
-    <List
-      className="demo-loadmore-list"
-      loading={initLoading}
-      itemLayout="horizontal"
-      loadMore={loadMore}
-      dataSource={list}
-      renderItem={(item) => (
-        <List.Item
-          actions={[
-            <a key="list-loadmore-edit">EDIT</a>,
-            <a key="list-loadmore-more">DELETE</a>,
-          ]}
-        >
-          <Skeleton avatar title={false} loading={item.loading} active>
-            <List.Item.Meta
-              avatar={<Avatar src={item.picture.large} />}
-              title={<a onClick={ShowInfoModal}>{item.name?.last}</a>}
-              description="Censor Sountify Website"
-            />
-            <div>email@example</div>
-          </Skeleton>
-        </List.Item>
-      )}
-    />
+    <>
+      <List
+        className="demo-loadmore-list"
+        loading={initLoading}
+        itemLayout="horizontal"
+        //loadMore={loadMore}
+        dataSource={list}
+        renderItem={(item) => (
+          <List.Item
+            actions={[<Button type="primary">Edit</Button>, <PopDelete />]}
+          >
+            <Skeleton avatar title={false} loading={item.loading} active>
+              <List.Item.Meta
+                avatar={<Avatar src={item.picture.large} />}
+                title={<a onClick={() => showModal(item)}>{item.name?.last}</a>}
+                description="Censor Sountify Website"
+              />
+              <div>{item.email}</div>
+            </Skeleton>
+          </List.Item>
+        )}
+      />
+      {selectedItem && <ShowInfoModal itemSelected={selectedItem} />}
+    </>
   );
 };
 export default ListCensor;

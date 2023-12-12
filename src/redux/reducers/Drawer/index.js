@@ -1,17 +1,17 @@
-// modalReducer.js
+// DRAWERReducer.js
 
 const initialState = {
   open: false,
 };
 
-const modalReducer = (state = initialState, action) => {
+const drawerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SHOW_MODAL":
+    case "SHOW_DRAWER":
       return {
         ...state,
         open: true,
       };
-    case "HIDE_MODAL":
+    case "HIDE_DRAWER":
       return {
         ...state,
         open: false,
@@ -21,4 +21,4 @@ const modalReducer = (state = initialState, action) => {
   }
 };
 
-export default modalReducer;
+export default drawerReducer;
