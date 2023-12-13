@@ -59,12 +59,7 @@ const MenuSiderbar = [
   getItem(
     <Link to="/admin-manage-songs">Songs</Link>,
     "songs",
-    <CustomerServiceOutlined />,
-    [
-      getItem(<Link to="/add-new-song">Add new song</Link>, "add-new"),
-      getItem(<Link to="/edit-song">Edit song</Link>, "edit"),
-      getItem(<Link to="/delete-song">Delete song</Link>, "delete"),
-    ]
+    <CustomerServiceOutlined />
   ),
 
   getItem(
