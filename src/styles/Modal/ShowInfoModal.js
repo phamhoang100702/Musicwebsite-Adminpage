@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, Space, Typography } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../redux/actions/showModal";
+import { closeModal } from "../../redux/actions/admin/censor/showModal";
 const ShowInfoModal = (props) => {
   const selectedItem = props.itemSelected;
 

@@ -4,7 +4,7 @@ const initialState = {
   open: false,
 };
 
-const drawerReducer = (state = initialState, action) => {
+const drawerReducerAddNew = (state = initialState, action) => {
   switch (action.type) {
     case "SHOW_DRAWER":
       return {
@@ -21,4 +21,4 @@ const drawerReducer = (state = initialState, action) => {
   }
 };
 
-export default drawerReducer;
+export default drawerReducerAddNew;

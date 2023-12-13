@@ -12,8 +12,10 @@ import {
 import ShowInfoModal from "../../../../styles/Modal/ShowInfoModal";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { PopDelete } from "../../../../styles/Popconfirm/PopDelete";
-import { useDispatch } from "react-redux";
-import { openModal } from "../../../../redux/actions/showModal";
+import { useDispatch, useSelector } from "react-redux";
+import { openModal } from "../../../../redux/actions/admin/censor/showModal";
+import FormEditCensor from "./FormEditCensor";
+import { openDrawerEdit } from "../../../../redux/actions/admin/censor/showDrawerEdit";
 const count = 8;
 const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
 const ListCensor = () => {
@@ -23,6 +25,8 @@ const ListCensor = () => {
   const [list, setList] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const dispatch = useDispatch();
+
+  const listSorted = useSelector((state) => state.shortByName.list);
 
   useEffect(() => {
     fetch(fakeDataUrl)
@@ -74,7 +78,13 @@ const ListCensor = () => {
   const showModal = (item) => {
     setSelectedItem(item);
     dispatch(openModal());
-    console.log("item selected: >>>", item);
+    //console.log("item selected: >>>", item);
+  };
+
+  const handleEditCensor = (item) => {
+    setSelectedItem(item);
+    console.log("itemselected>>>>", item);
+    dispatch(openDrawerEdit(true, item));
   };
   return (
     <>
@@ -86,7 +96,12 @@ const ListCensor = () => {
         dataSource={list}
         renderItem={(item) => (
           <List.Item
-            actions={[<Button type="primary">Edit</Button>, <PopDelete />]}
+            actions={[
+              <Button type="primary" onClick={() => handleEditCensor(item)}>
+                Edit
+              </Button>,
+              <PopDelete />,
+            ]}
           >
             <Skeleton avatar title={false} loading={item.loading} active>
               <List.Item.Meta

@@ -12,11 +12,11 @@ import {
   Space,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { closeDrawer } from "../../../../redux/actions/showDrawer";
+import { closeDrawer } from "../../../../redux/actions/admin/censor/showDrawer";
 const { Option } = Select;
 const FormAddNewCensor = () => {
   const dispatch = useDispatch();
-  const open = useSelector((state) => state.openDrawer.open);
+  const open = useSelector((state) => state.openDrawerAddNew.open);
   const onClose = () => {
     dispatch(closeDrawer());
   };
