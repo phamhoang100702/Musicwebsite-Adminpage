@@ -3,7 +3,7 @@ const initialState = {
   sortOrder: "asc",
 };
 
-export const shortReducer = (state = initialState, action) => {
+export const sortReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SHORT_BY_NAME":
       const sortedList = [...state.list].sort((a, b) => {

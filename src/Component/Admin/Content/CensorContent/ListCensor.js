@@ -26,8 +26,6 @@ const ListCensor = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const dispatch = useDispatch();
 
-  const listSorted = useSelector((state) => state.shortByName.list);
-
   useEffect(() => {
     fetch(fakeDataUrl)
       .then((res) => res.json())

@@ -11,12 +11,25 @@ export const drawerReducerEdit = (state = initialState, action) => {
         open: true,
         data: action.payload.data,
       };
+    case "USER_OPEN_DRAWER_EDIT":
+      return {
+        ...state,
+        open: true,
+        data: action.payload.data,
+      };
     case "CLOSE_DRAWER_EDIT":
       return {
         ...state,
         open: false,
         data: null,
       };
+    case "USER_CLOSE_DRAWER_EDIT":
+      return {
+        ...state,
+        open: false,
+        data: null,
+      };
+
     default:
       return state;
   }
