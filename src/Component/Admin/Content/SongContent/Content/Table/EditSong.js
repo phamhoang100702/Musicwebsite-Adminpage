@@ -6,7 +6,6 @@ import { useSelector,useDispatch } from 'react-redux';
 import { editSong } from '../../../../../../redux/actions/admin/song/EditSong.js';
 import EditForm from './EditForm';
 const EditSong = ({index}) => {
-console.log(index)
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const showDrawer = () => {
