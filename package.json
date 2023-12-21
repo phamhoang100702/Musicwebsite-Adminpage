@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@ant-design/charts": "^1.4.3",
+    "@ant-design/charts": "^2.0.2",
     "@ant-design/icons": "^5.2.6",
     "@reduxjs/toolkit": "^2.0.1",
     "@testing-library/jest-dom": "^5.17.0",
@@ -12,11 +12,13 @@
     "antd": "^5.12.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-h5-audio-player": "^3.9.0",
     "react-redux": "^9.0.4",
     "react-router-dom": "^6.20.1",
     "react-scripts": "^5.0.1",
     "redux": "^5.0.0",
     "redux-thunk": "^3.1.0",
+    "reselect": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

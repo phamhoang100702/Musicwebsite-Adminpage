@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Form, Input, InputNumber } from "antd";
 import { useSelector } from "react-redux";
 const layout = {
@@ -26,48 +26,58 @@ const validateMessages = {
 const onFinish = (values) => {
   console.log(values);
 };
-const EditForm = () => {
-  const data = useSelector(state => state.editSong);
-
-
+const FormEdit = () => {
+  const data = useSelector((state) => state.listSongReducer.editSong);
   return (
     <Form
       {...layout}
       name="song"
-      size="medium"
       onFinish={onFinish}
       style={{
-        maxWidth: 800,
-        //   width:'400px'
+        maxWidth: 600,
       }}
       validateMessages={validateMessages}
+      initialValues={{
+        song: {
+          name: data.name,
+          singer: data.singer,
+          album: data.album,
+        },
+      }}
     >
       <Form.Item
         name={["song", "name"]}
         label="Name"
         rules={[
           {
+            required: false,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name={["song", "singer"]}
+        label="singer"
+        rules={[
+          {
             required: true,
           },
         ]}
       >
-        <Input value={data.name} />
+        <Input />
       </Form.Item>
       <Form.Item
-        name={["song", "age"]}
-        label="age"
+        name={["song", "album"]}
+        label="album"
         rules={[
           {
-            type: "true",
+            required: false,
           },
         ]}
       >
-        <Input value={data.age}/>
+        <Input />
       </Form.Item>
-      <Form.Item name={["song", "address"]} label="address">
-        <Input value={data.address}/>
-      </Form.Item>
-
       <Form.Item
         wrapperCol={{
           ...layout.wrapperCol,
@@ -81,4 +91,4 @@ const EditForm = () => {
     </Form>
   );
 };
-export default EditForm;
+export default FormEdit;

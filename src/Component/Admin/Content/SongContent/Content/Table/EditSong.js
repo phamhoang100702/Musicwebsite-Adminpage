@@ -3,13 +3,13 @@ import { Button, Drawer } from 'antd';
 import { useSelector,useDispatch } from 'react-redux';
 
 
-import { editSong } from '../../../../../../redux/actions/admin/song/EditSong.js';
+import { editSong } from '../../../../../../redux/actions/admin/song/EditSong';
 import EditForm from './EditForm';
-const EditSong = ({index}) => {
+const EditSong = ({record}) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const showDrawer = () => {
-    dispatch(editSong(index))
+    dispatch(editSong(record))
     setOpen(true);
   };
   const onClose = () => {
@@ -20,7 +20,7 @@ const EditSong = ({index}) => {
       <Button type="primary" onClick={showDrawer}>
         Open
       </Button>
-      <Drawer title="Basic Drawer" placement="right" onClose={onClose} open={open} size='small' >
+      <Drawer title="Edit Song" placement="right" onClose={onClose} open={open} size='small' >
         <EditForm/>
       </Drawer>
     </>

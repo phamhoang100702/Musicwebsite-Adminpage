@@ -11,7 +11,7 @@ import { Admin } from "../../Component/Admin";
 import { OverviewCensor } from "../../Component/Admin/Content/CensorContent/overview";
 import { OverviewUser } from "../../Component/Admin/Content/UserContent/overview";
 import { OverviewSinger } from "../../Component/Admin/Content/SingerContent/overview";
-import { OverviewSong } from "../../Component/Admin/Content/SongContent/overview";
+import { OverviewSong } from "../../Component/Admin/Content/SongContent";
 import { Payment } from "../../Component/Admin/Content/PaymentContent/Payment";
 import { StatisticalMain } from "../../Component/Admin/Content/StatisticalContent";
 

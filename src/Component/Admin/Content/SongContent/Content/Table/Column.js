@@ -3,49 +3,47 @@ import EditSong from "./EditSong";
 
 const columns = [
   {
+    title:"#",
+    dataIndex:"key",
+    key:"key",
+  },
+  {
     title: "Name",
     dataIndex: "name",
     key: "name",
     render: (text) => <a>{text}</a>,
+    
   },
   {
-    title: "Age",
-    dataIndex: "age",
-    key: "age",
+    title: "Singer",
+    dataIndex: "singer",
+    key: "singer",
   },
   {
-    title: "Address",
-    dataIndex: "address",
-    key: "address",
-  },
-  {
-    title: "Tags",
-    key: "tags",
-    dataIndex: "tags",
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? "geekblue" : "green";
-          if (tag === "loser") {
-            color = "volcano";
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
+    title: "Status",
+    dataIndex: "status",
+    key: "status",
+    render:(_,{status})=>{
+      let color = status=='private'?'red':'green';
+      return <>
+        <Tag color={color}>
+            {status}
+        </Tag>
       </>
-    ),
+    }
+  },
+  {
+    title: "Category",
+    dataIndex: "category",
+    key: "category",
   },
   {
     title: "Action",
     key: "action",
-    render: (_, record,index) => {
-    //   console.log(index)
+    render: (_, record) => {
       return (
       <Space size="middle">
-        <EditSong index={index} />
+        <EditSong  record={record}/>
       </Space>
       )
     },

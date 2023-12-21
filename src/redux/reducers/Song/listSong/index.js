@@ -1,16 +1,17 @@
-import Song from "../../../Component/Song/Song";
 
 const initialState = {
     editSong: {
 
-    }
+    },
+    listSong:[]
 }
 
-const editSongReducer = (state = initialState,action)=>{
+const listSongReducer = (state = initialState,action)=>{
     switch(action.type){
         case "SONG/EDIT_SONG":{
             return {
-                editSong: Song
+                ...state,
+                editSong: action.payload
             }
         }
         default:{
@@ -20,4 +21,4 @@ const editSongReducer = (state = initialState,action)=>{
     }
 }
 
-export default editSongReducer
+export default listSongReducer

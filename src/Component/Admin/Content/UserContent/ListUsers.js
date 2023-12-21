@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
-import qs from "qs";
 import { Button, Table } from "antd";
 import { PopDelete } from "../../../../styles/Popconfirm/PopDelete";
 import { useDispatch } from "react-redux";
 import { openDrawerEditUser } from "../../../../redux/actions/admin/user/showEditDrawer";
 import { sortDataByName } from "../../../../sort";
 
+import { listUser, fetchListUser } from "../../../../fetch/user";
+
 const getRandomuserParams = (params) => ({
   results: params.pagination?.pageSize,
   page: params.pagination?.current,
   ...params,
 });
+
+let myPromise = new Promise(async function (myResolve, myReject) {
+  await fetchListUser();
+  myResolve();
+  myReject();
+});
 const ListUsers = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [tableParams, setTableParams] = useState({
     pagination: {
@@ -20,27 +27,31 @@ const ListUsers = () => {
       pageSize: 10,
     },
   });
+  // useEffect(() => {
+  //   fetchListUser();
+  //   fetchData();
+  // }, [listUser]);
+
   const fetchData = () => {
     setLoading(true);
-    fetch(
-      `https://randomuser.me/api?${qs.stringify(
-        getRandomuserParams(tableParams)
-      )}`
-    )
-      .then((res) => res.json())
-      .then(({ results }) => {
-        setData(results);
-        setLoading(false);
-        setTableParams({
-          ...tableParams,
-          pagination: {
-            ...tableParams.pagination,
-            total: 20,
-            // 200 is mock data, you should read it from server
-            // total: data.totalCount,
-          },
-        });
+     myPromise.then(() => {
+      let results = listUser.map((item, index) => {
+        return {
+          ...item,
+          key: index + 1,
+        };
       });
+      console.log(results)
+      setData(results);
+      setLoading(false);
+      setTableParams({
+        ...tableParams,
+        pagination: {
+          ...tableParams.pagination,
+          total: 20,
+        },
+      });
+    });
   };
   useEffect(() => {
     fetchData();
@@ -72,22 +83,7 @@ const ListUsers = () => {
       title: "Name",
       dataIndex: "name",
       sorter: true,
-      render: (name) => `${name.first} ${name.last}`,
-      width: "20%",
-    },
-    {
-      title: "Role",
-      dataIndex: "role",
-      filters: [
-        {
-          text: "Premiun",
-          value: "premium",
-        },
-        {
-          text: "Normal",
-          value: "normal",
-        },
-      ],
+      render: (name) => `${name}`,
       width: "20%",
     },
     {
@@ -117,7 +113,6 @@ const ListUsers = () => {
   return (
     <Table
       columns={columns}
-      rowKey={(record) => record.login.uuid}
       dataSource={data}
       pagination={tableParams.pagination}
       loading={loading}
