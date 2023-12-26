@@ -1,66 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table, Card } from "antd";
-
+import { useDispatch, useSelector } from "react-redux";
+import { searchTextSong } from "../../../../../../redux/selector/song/index.js";
+import { setListSong } from "../../../../../../redux/actions/admin/song/index.js";
 import columns from "./Column.js";
-import { current } from "@reduxjs/toolkit";
 import TopSider from "../SearchBar/index.js";
-import { songSearch } from "../../../../../../redux/selector/song/";
-import { useSelector } from "react-redux";
+import { getSongPage } from "../../../../../../services/api/song/index.js";
+
 const ListSong = () => {
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [dataSource, setDataSource] = useState([]);
+  // const [dataSource, setDataSource] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [pageSize, setPageSize] = useState(10);
-
-  const OnSearch = () => {
-    let name = useSelector((state) => state.searchSongReducer.search);
-    console.log(name);
-    fetchRecords(name, 1, pageSize);
-  };
-
-  const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-  };
-  const hasSelected = selectedRowKeys.length > 0;
+  const dispatch = useDispatch();
+  let search = useSelector((state)=>state.listSongReducer.searchText);
+  let dataSource = useSelector((state)=>state.listSongReducer.listSong);
 
   useEffect(() => {
-    fetchRecords(1);
-  }, []);
+    fetchRecords(1, pageSize);
+  }, [search]);
 
-  const fetchRecords = (name = "", page = 1, pageSize = 10) => {
+  const fetchRecords = (page = 1, pageSize = 10) => {
+    const name = search;
     setLoading(true);
-    fetch(
-      `http://localhost:9000/api/v1/song?name=${name}&pageNo=${page}&pageSize=${pageSize}`,
-      {
-        method: "GET",
-      }
-    )
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-      })
-      .then((data) => {
-        if (data) {
-          console.log(data);
-          setPageSize(data.object.size);
-          let data1 = data.object.content.map((item, index) => {
-            return {
-              ...item,
-              key: index + 1,
-            };
-          });
-          setDataSource(data1);
-          setTotalPages(data.object.totalPages * pageSize);
-          setLoading(false);
-        }
+    async function fetch(name, page, pageSize) {
+      const object = await getSongPage(name, page, pageSize);
+      const listSong = object.content;
+      let data1 = listSong.content.map((item, index) => {
+        return {
+          ...item,
+          key: index + 1,
+        };
       });
+      dispatch(setListSong(data1));
+      setPageSize(listSong.size);
+      setTotalPages(listSong.totalPages * pageSize);
+      setLoading(false)
+    }
+    fetch(name, page, pageSize);
+
   };
 
   return (
@@ -72,7 +50,7 @@ const ListSong = () => {
       }}
       extra={
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <TopSider submitSearch={OnSearch} />
+          <TopSider />
         </div>
       }
     >
@@ -81,7 +59,6 @@ const ListSong = () => {
           loading={loading}
           columns={columns}
           dataSource={dataSource}
-          rowSelection={rowSelection}
           pagination={{
             pageSize: pageSize,
             total: totalPages,

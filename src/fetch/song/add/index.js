@@ -1,6 +1,7 @@
 import { json } from "react-router-dom";
 import { songUrl } from "../../url";
 import { s3Url } from "../../url";
+import { Alert } from "antd";
 export const addSong = async (file, song) => {
   var form = new FormData();
   console.log(song);
@@ -17,20 +18,22 @@ export const addSong = async (file, song) => {
       if (response.ok) {
         return response.json();
       } else {
+        return null;
       }
     })
-    .then((data) => {
-      console.log(data.object);
-      song = {
-        ...song,
-        fileSound: data.object[0],
-        fileLyric: data.object[1],
-        avatar: data.object[2],
-      };
-      if (data.object) {
+    .then((data) => {      
+      if (data) {
+        song = {
+          ...song,
+          fileSound: data.object[0],
+          fileLyric: data.object[1],
+          avatar: data.object[2],
+        };
         return data.object;
       }
-    });
+    }).then(error=>{
+      
+    })
 
   addSongNotFile(song);
 };
@@ -71,7 +74,7 @@ export const addSongNotFile = (song) => {
     })
     .then((data) => {
       if (data) {
-        return data.object;
+        return <Alert message="Success" type="success" />;
       }
     }).catch((error)=>{
         console.log(error)

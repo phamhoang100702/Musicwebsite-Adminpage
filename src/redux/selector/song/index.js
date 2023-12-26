@@ -1,6 +1,4 @@
 import { createSelector } from "reselect";
 
-// export const songSearch = createSelector((state) => {
-//   console.log(state.searchSongReducer.search);
-//   return state.searchSongReducer.search;
-// });
+export const searchTextSong = (state)=>state.listSongReducer.search;
+export const editSong = (state) => state.listSongReducer.editSong;

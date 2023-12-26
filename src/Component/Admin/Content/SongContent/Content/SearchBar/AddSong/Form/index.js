@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Row, Col, Select, Space } from "antd";
-import { useSelector } from "react-redux";
-import { UploadOutlined } from "@ant-design/icons";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 
-import { categoryUrl } from "../../../../../../../../fetch/url";
 import { addSong } from "../../../../../../../../fetch/song/add";
+import { fetchSinger } from "../../../../../../../../fetch/singer";
+import { getAllCategory } from "../../../../../../../../services/api/category";
+import { getAllSinger } from "../../../../../../../../services/api/singer";
+import { uploadFileSound,saveSong } from "../../../../../../../../services/api/song";
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
   required: "${label} is required!",
@@ -17,7 +18,28 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const AddForm = () => {
+const handleSinger = (singers)=>{
+  console.log(singers)
+  const arr = singers.map((singer)=>{
+    const arr1 = singer.split(";");
+    return {
+      "id" : arr1[1]
+    }
+  })
+  return arr;
+}
+
+const handleCategory = (categories)=>{
+  const arr = categories.map((category)=>{
+    const arr1 = category.split(";");
+    return {
+      "id" : arr1[1]
+    }
+  })
+  return arr;
+}
+
+const AddForm = ({ onSubmit }) => {
   const [disabled, setDisabled] = useState(true);
   const [source, setSource] = useState(null);
   const [files, setFiles] = useState({});
@@ -26,83 +48,50 @@ const AddForm = () => {
   const [listSinger, setListSinger] = useState([]);
   const [optionCategory, setOptionCategory] = useState([]);
   const [listCategory, setListCategory] = useState([]);
-  useEffect(() => {
-    fetch(categoryUrl, {
-      method: "GET",
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return null;
-        }
-      })
-      .then((data) => {
-        if (data) {
-          setListCategory([...data.object]);
-          return data.object;
-        }
-      });
-  }, []);
-
-  useEffect(() => {
-    fetch("http://localhost:9000/api/v1/singer", {
-      method: "GET",
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return null;
-        }
-      })
-      .then((data) => {
-        if (data) {
-          setListSinger([...data.object]);
-          return data.object;
-        }
-        else {
-
-        }
-      });
-  }, []);
-  useEffect(() => {
-    console.log(listSinger);
-    const data = listSinger.map((singer) => {
-      return {
-        value: singer.nickName+";"+singer.id,
-        label: singer.nickName,
-        key: singer.id,
-        desc: singer.nickName + "(" + singer.name + ")",
-      };
-    });
-    console.log(data);
-    setOptions([...data]);
-  }, [listSinger]);
-
-  useEffect(() => {
-    const data = listCategory.map((category) => {
-      return {
-        value: category.name+";"+category.id,
-        label: category.name,
-        key: category.id,
-        desc: category.name,
-      };
-    });
-    console.log(data);
-    setOptionCategory([...data]);
-  }, [listCategory]);
+  const [form] = Form.useForm();
 
   const onFinish = (values) => {
     // let songSubmi
-    
-    values = {
-      ...values,
-      files
-    }
+    let form1 = new FormData();
+    form1.append("sound", files["sound"]);
+    form1.append("lyric", files["lyric"]);
+    form1.append("avatar", files["avatar"]);
     console.log(values)
-    addSong(values.files,values.song)
+    const saveSongData = async () => {
+      const object = await uploadFileSound(form1);
+      let ct = object.content;
+      const singers = handleSinger(values.song.singers);
+      const categories = handleCategory(values.song.categories);
+      const newSong = {
+        ...values.song,
+        'fileSound' : ct.sound,
+        'fileLyric' : ct.lyric,
+        'avatar' : ct.avatar,
+        'singers' : singers,
+        'categories' : categories
+      }
+      console.log(newSong)  
+      const obj = await saveSong(newSong);
+      console.log(obj)
+    };
     
+    saveSongData();
+
+    onSubmit();
+    console.log(form);
+
+    form.setFieldsValue({
+      song: {
+        name: "",
+        categories: [],
+        singers: [],
+        fileLyric: "",
+        fileSound: "",
+        avatar: "",
+        status: false,
+      },
+    });
+    setSource("");
   };
   // api
 
@@ -112,11 +101,12 @@ const AddForm = () => {
     if (file && file.name.endsWith(".mp3")) {
       // Assuming setSource is a function to set the source of your audio element
       let file1 = URL.createObjectURL(file);
-      setFiles((pre)=>{
+      setFiles((pre) => {
         return {
-        ...pre,
-        'sound':file
-      }})
+          ...pre,
+          sound: file,
+        };
+      });
       setSource(file1);
       setDisabled(false);
     }
@@ -127,14 +117,15 @@ const AddForm = () => {
     file = file.files[0];
     if (file && file.name.endsWith(".lrc")) {
       // Assuming setSource is a function to set the source of your audio element
-      setFiles((pre)=>{
+      setFiles((pre) => {
         return {
           ...pre,
-          'lyric':file
-        }
-      })
-
+          lyric: file,
+        };
+      });
       // setDisabled(!disabled);
+    } else {
+      setDisabled(true);
     }
   };
 
@@ -148,30 +139,71 @@ const AddForm = () => {
         filePath.name.endsWith(".jpeg"))
     ) {
       // setDisabled(!disabled);
-      setFiles((pre)=>{
+      setFiles((pre) => {
         return {
-        ...pre,
-        'avatar':filePath
-      }})
+          ...pre,
+          avatar: filePath,
+        };
+      });
     }
   };
 
+  useEffect(() => {
+    async function fetch_category() {
+      const object = await getAllCategory();
+      const arr1 = object.content;
+      setListCategory(arr1);
+      const object1 = await getAllSinger();
+      const arr2 = object1.content;
+      setListSinger(arr2);
+    }
+    fetch_category();
+  }, []);
+
+  useEffect(() => {
+    console.log(listSinger);
+    const data = listSinger.map((singer) => {
+      return {
+        value: singer.nickName + ";" + singer.id,
+        label: singer.nickName,
+        key: singer.id,
+        desc: singer.nickName + "(" + singer.name + ")",
+      };
+    });
+    console.log(data);
+    setOptions([...data]);
+  }, [listSinger]);
+
+  useEffect(() => {
+    const data = listCategory.map((category) => {
+      return {
+        value: category.name + ";" + category.id,
+        label: category.name,
+        key: category.id,
+        desc: category.name,
+      };
+    });
+    console.log(data);
+    setOptionCategory([...data]);
+  }, [listCategory]);
+
   return (
     <Form
+      form={form}
       name="song"
       onFinish={onFinish}
       validateMessages={validateMessages}
       layout="vertical"
       initialValues={{
-        song : {
-          name : "",
-          categories : [],
-          singers : [],
-          fileLyric : "",
-          fileSound : "",
-          avatar : "",
-          status : false
-        }
+        song: {
+          name: "",
+          categories: [],
+          singers: [],
+          fileLyric: "",
+          fileSound: "",
+          avatar: "",
+          status: false,
+        },
       }}
     >
       <Row gutter={16}>

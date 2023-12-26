@@ -14,5 +14,4 @@ export const allReducers = combineReducers({
   getDataCensor: dataCensorReducer,
   sortReducer: sortReducer,
   listSongReducer : listSongReducer,
-  searchSongReducer:searchSongReducer
 });

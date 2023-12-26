@@ -1,22 +1,17 @@
 import { categoryUrl } from "../../url";
-let listCategories = [];
 
-export const fetchCategories = () => {
-  fetch(categoryUrl, {
+export const fetchCategories = async() => {
+  const response  = await fetch(categoryUrl, {
     method: "GET",
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-      }
-    })
-    .then((data) => {
-      if (data) {
-        listCategories = data.object;
-        return data.object;
-      }
-    });
+  });
+  if(response.ok){
+    console.log(response);
+    const result = await response.json();
+    return result.object;
+  }
+  else {
+    return [];
+  }
 };
 
-export { listCategories };
+

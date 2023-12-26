@@ -1,16 +1,17 @@
 import AddSong from "./AddSong";
 import SearchBar from "./Search";
-import { Col, Row } from "antd";
+import { Button, Col, Row } from "antd";
 
-const TopSider = ({submitSearch}) => {
+const TopSider = () => {
   return (
-      <Row>
+      <Row gutter={5}>
         <Col span={4}>
         <AddSong />
         </Col>
         <Col span={16}>
-          <SearchBar submitSearch={submitSearch}/>
-        </Col>
+          <SearchBar/>
+        </Col>  
+        
       </Row>
   );
 };

@@ -9,13 +9,14 @@ const AddSong = () => {
   const onClose = () => {
     setOpen(false);
   };
+
   return (
     <>
       <Button type="primary" onClick={showDrawer} style={{backgroundColor:"#23ba9f"}}>
         ADD
       </Button>
-      <Drawer title="New Song" placement="right" onClose={onClose} open={open} width={"500px"}>
-        <AddForm/>
+      <Drawer title="New Song" placement="right" onClose={onClose} open={open} width={"500px"} >
+        <AddForm  onSubmit ={onClose}/>
       </Drawer>
     </>
   );

@@ -1,20 +1,17 @@
 import { singerUrl } from "../url";
 
-const listSinger = [];
-export const fetchSinger = () => {
-  fetch(singerUrl, {
-    method: "GET",
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-      }
-    })
-    .then((data) => {
-      listSinger = [...data.object];
-      return data.object;
+export async function fetchSinger() {
+  try {
+    const response = await fetch(singerUrl, {
+      method: "GET",
     });
-};
-
-export {  listSinger };
+    if (response.ok) {
+      const result = await response.json();
+      return result.object;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
