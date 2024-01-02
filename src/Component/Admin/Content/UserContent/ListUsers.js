@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import { openDrawerEditUser } from "../../../../redux/actions/admin/user/showEditDrawer";
 import { sortDataByName } from "../../../../sort";
 
-import { listUser, fetchListUser } from "../../../../fetch/user";
 
 const getRandomuserParams = (params) => ({
   results: params.pagination?.pageSize,
@@ -14,7 +13,6 @@ const getRandomuserParams = (params) => ({
 });
 
 let myPromise = new Promise(async function (myResolve, myReject) {
-  await fetchListUser();
   myResolve();
   myReject();
 });
@@ -35,12 +33,8 @@ const ListUsers = () => {
   const fetchData = () => {
     setLoading(true);
      myPromise.then(() => {
-      let results = listUser.map((item, index) => {
-        return {
-          ...item,
-          key: index + 1,
-        };
-      });
+      let results = []
+
       console.log(results)
       setData(results);
       setLoading(false);

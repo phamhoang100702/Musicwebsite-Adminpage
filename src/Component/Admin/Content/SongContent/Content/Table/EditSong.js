@@ -91,16 +91,13 @@ const EditSong = ({ record }) => {
         formData.append("sound", files["sound"]);
         const data = await uploadFileSound(formData);
         const url = data.content.sound;
-        console.log(url);
         songUpdate = {
           ...songUpdate,
           fileSound: url,
         };
       }
 
-      console.log(songUpdate);
       const nData = await updateSong(songUpdate);
-      console.log(nData.content);
       dispatch(editSong(nData.content));
     };
     updateSongData();

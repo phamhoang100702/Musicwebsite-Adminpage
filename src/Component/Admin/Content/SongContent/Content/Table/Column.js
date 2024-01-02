@@ -1,5 +1,26 @@
 import { Tag, Space, Button, Row, Col } from "antd";
 import EditSong from "./EditSong";
+import { deleteSongById } from "../../../../../../services/api/song";
+import { useDispatch } from "react-redux";
+import { deleteSong } from "../../../../../../redux/actions/admin/song";
+
+const ButtonHandleDelete = ({ record }) => {
+  const dispatch = useDispatch();
+  const handleDelete = () => {
+    console.log(record)
+    const del = async () => {
+      const dt = await deleteSongById(record.id);
+    };
+    del();
+    
+    dispatch(deleteSong(record.id));
+  };
+  return (
+    <Button type="primary" danger onClick={handleDelete}>
+      Delete
+    </Button>
+  );
+};
 
 const columns = [
   {
@@ -22,14 +43,26 @@ const columns = [
         return <Tag key={index}>{singer.nickName}</Tag>;
       });
     },
+    width : '20%'
   },
   {
     title: "Status",
     dataIndex: "status",
     key: "status",
     render: (_, { status }) => {
-      let color = status == true ? "green" : "red";
-      let value = status == true ? "Public" : "Private";
+      let color,value;
+      if(status==0){
+        color = "red"
+        value ="PRIVATE"
+      }
+      else if(status == 1){
+        color = "gray"
+        value = "PENDING"
+      }
+      else{
+        color = "green"
+        value = "PUBLIC"
+      }
       return (
         <>
           <Tag color={color}>{value}</Tag>
@@ -62,9 +95,7 @@ const columns = [
       return (
         <Space size="middle">
           <EditSong record={record} />
-          <Button type="primary" danger>
-            Delete
-          </Button>
+          <ButtonHandleDelete record={record} />
         </Space>
       );
     },

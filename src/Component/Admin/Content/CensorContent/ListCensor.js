@@ -16,8 +16,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../../../redux/actions/admin/censor/showModal";
 import FormEditCensor from "./FormEditCensor";
 import { openDrawerEdit } from "../../../../redux/actions/admin/censor/showDrawerEdit";
+import { getAllCensor } from "../../../../services/api/censor";
 const count = 8;
 const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
+
 const ListCensor = () => {
   const [initLoading, setInitLoading] = useState(true);
   const [loading, setLoading] = useState(false);

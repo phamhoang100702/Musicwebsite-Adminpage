@@ -3,11 +3,11 @@ import { Button, Form, Input, Row, Col, Select, Space } from "antd";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 
-import { addSong } from "../../../../../../../../fetch/song/add";
-import { fetchSinger } from "../../../../../../../../fetch/singer";
 import { getAllCategory } from "../../../../../../../../services/api/category";
 import { getAllSinger } from "../../../../../../../../services/api/singer";
-import { uploadFileSound,saveSong } from "../../../../../../../../services/api/song";
+import { uploadFileSound,saveSong, getSongById } from "../../../../../../../../services/api/song";
+import { useDispatch } from "react-redux";
+import { addSong } from "../../../../../../../../redux/actions/admin/song";
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
   required: "${label} is required!",
@@ -49,6 +49,8 @@ const AddForm = ({ onSubmit }) => {
   const [optionCategory, setOptionCategory] = useState([]);
   const [listCategory, setListCategory] = useState([]);
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
+
 
   const onFinish = (values) => {
     // let songSubmi
@@ -62,6 +64,7 @@ const AddForm = ({ onSubmit }) => {
       let ct = object.content;
       const singers = handleSinger(values.song.singers);
       const categories = handleCategory(values.song.categories);
+      console.log(ct);
       const newSong = {
         ...values.song,
         'fileSound' : ct.sound,
@@ -70,9 +73,13 @@ const AddForm = ({ onSubmit }) => {
         'singers' : singers,
         'categories' : categories
       }
-      console.log(newSong)  
+      console.log(newSong)
       const obj = await saveSong(newSong);
-      console.log(obj)
+      
+      const objToTable = await getSongById(obj.content.id)
+      console.log("after add : ")
+      console.log(objToTable.content)
+      dispatch(addSong(objToTable.content))
     };
     
     saveSongData();
@@ -227,12 +234,16 @@ const AddForm = ({ onSubmit }) => {
               options={[
                 {
                   label: "Public",
-                  value: "true",
+                  value: 2,
                 },
                 {
                   label: "Private",
-                  value: "false",
+                  value: 0,
                 },
+                {
+                  label:"Pending",
+                  value:1
+                }
               ]}
             />
           </Form.Item>
