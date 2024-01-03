@@ -1,15 +1,8 @@
 import { Route } from "react-router-dom";
-import { UserManage } from "../../Component/Admin/Content/UserContent/UserManage";
-import { SingerManage } from "../../Component/Admin/Content/SingerContent/SingerManage";
-import {
-  CensorAddNew,
-  CensorManage,
-} from "../../Component/Admin/Content/CensorContent/CensorManage";
-import { SongManage } from "../../Component/Admin/Content/SongContent/SongManage";
-import { StatisticalDetails } from "../../Component/Admin/Content/StatisticalContent/StatisticalDetails";
+
 import { Admin } from "../../Component/Admin";
 import { OverviewCensor } from "../../Component/Admin/Content/CensorContent/overview";
-import { OverviewUser } from "../../Component/Admin/Content/UserContent/overview";
+import { OverviewUser } from "../../Component/Admin/Content/UserContent";
 import { OverviewSinger } from "../../Component/Admin/Content/SingerContent/overview";
 import { OverviewSong } from "../../Component/Admin/Content/SongContent";
 import { Payment } from "../../Component/Admin/Content/PaymentContent/Payment";
