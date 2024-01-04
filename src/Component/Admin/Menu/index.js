@@ -67,11 +67,6 @@ const MenuSiderbar = [
     // ]
   ),
 
-  getItem(
-    <Link to="admin-payment">Payments</Link>,
-    "payment",
-    <BankOutlined />
-  ),
   //   {
   //     key: "user",
   //     icon: <UserOutlined />,

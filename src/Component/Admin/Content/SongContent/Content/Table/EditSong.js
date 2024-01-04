@@ -13,11 +13,7 @@ import {
 import { editSong } from "../../../../../../redux/actions/admin/song";
 
 const validateMessages = {
-  required: "${label} is required!",
-  types: {
-    email: "${label} is not a valid email!",
-    number: "${label} is not a valid number!",
-  },
+
 };
 
 const handleSinger = (singers) => {
@@ -52,6 +48,8 @@ const handleCategory = (categories) => {
   return arr;
 };
 
+
+
 const EditSong = ({ record }) => {
   const [open, setOpen] = useState(false);
   const [source, setSource] = useState(null);
@@ -75,6 +73,8 @@ const EditSong = ({ record }) => {
 
 
   const onFinish = (values) => {
+    console.log("edit")
+    console.log(values)
     const updateSongData = async () => {
       let songUpdate;
       const singers = handleSinger(values.song.singers);
@@ -212,12 +212,16 @@ const EditSong = ({ record }) => {
                   options={[
                     {
                       label: "Public",
-                      value: true,
+                      value: 2,
                     },
                     {
                       label: "Private",
-                      value: false,
+                      value: 0,
                     },
+                    {
+                      label:"Pending",
+                      value: 1
+                    }
                   ]}
                 />
               </Form.Item>

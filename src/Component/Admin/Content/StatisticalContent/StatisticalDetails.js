@@ -88,13 +88,13 @@ export const StatisticalDetails = () => {
           <Statistic
             title={
               <span style={{ color: "#000", fontSize: "1rem" }}>
-                Premium users
+                Listens
               </span>
             }
             value={3333}
             valueStyle={{ color: "#000", fontWeight: "800" }}
             prefix={<SketchOutlined />}
-            suffix={<span style={{ fontSize: "0.9rem" }}>users</span>}
+           
           />
         </Card>
       </Col>

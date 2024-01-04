@@ -12,7 +12,6 @@ const ListSong = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [pageSize, setPageSize] = useState(10);
-  const [checked, setChecked] = useState(false)
   const dispatch = useDispatch();
   let search = useSelector((state)=>state.listSongReducer.searchText);
   let dataSource = useSelector((state)=>state.listSongReducer.listSong);

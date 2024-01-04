@@ -1,11 +1,19 @@
-import { get, put } from "../../utils";
+import { del, get, post, put } from "../../utils";
 
 export const getSingerByNameAndNickName = async (name="",nickName="") => {
-  return await get(`singer?name=${name}&nickname=${nickName}`);
+  return await get(`singer?name=${name}`);
 };
+
+export const addSinger = async(object)=>{
+  return await post(`singer`,object)
+}
 
 export const updateSinger = async(object= {}) => {
   return await put("singer",object)
+};
+
+export const deleteSingerById = async(id) => {
+  return await del(`singer/${id}`)
 };
 
 export const getAllSinger =async ()=>{

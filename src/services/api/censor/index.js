@@ -1,7 +1,7 @@
 import {get,put,post,del} from "../../utils"
 
-export const getAllCensor = async() => {
-    return await get(`censor`);
+export const getAllCensorByName = async(name) => {
+    return await get(`censor?name=${name}`);
 }
 
 export const getCensorById = async(id) => {

@@ -1,7 +1,7 @@
 import {get,put,post,del} from "../../utils"
 
-export const getAllUser = async() => {
-    return await get(`user`);
+export const searchAllUser = async(name) => {
+    return await get(`user?name=${name}`);
 }
 
 export const getUserById = async(id) => {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Space, Table, Drawer } from "antd";
+import { Button, Card, Space, Table, Drawer, Tag } from "antd";
 import Search from "antd/es/input/Search";
-import {  searchAllUser,deleteUserById } from "../../../../services/api/user";
 import FormAdd from "./FormAdd";
-import FormEdit from "./EditUser";
+import FormEdit from "./Edit";
+import { getAllCensorByName,deleteCensorById } from "../../../../services/api/censor";
 
 // const handleDelete = () => {};
 const columns = [
@@ -19,13 +19,34 @@ const columns = [
     // filterMode: "tree",
     filterSearch: true,
     onFilter: (value, record) => record.name.startsWith(value),
-    width: "30%",
+    width: "10%",
+    
   },
   {
     title: "Email",
     dataIndex: "email",
     key: "email",
     // sorter: (a, b) => a.age - b.age,
+    width: "20%",
+
+  },
+
+  {
+    title: "Phone",
+    dataIndex: "phone",
+    key: "phone",
+  },
+  {
+    title: "Status",
+    dataIndex: "status",
+    key: "status",
+    render:(_,{status})=>{
+      const arr = status==true?"Active":"Unactive"
+      const color = status==true?"green":"grey"
+      return <>
+        <Tag color={color}>{arr}</Tag>
+      </>
+    },
   },
   {
     title: "Modified Date",
@@ -36,16 +57,17 @@ const columns = [
       return <>
         {arr[0]}
       </>
-    }
+    },
+    width: "10%",
+
   },
   {
     title: "Action",
     key: "action",
     render: (_, record) => {
-      console.log(record)
       return (
         <Space size="middle">
-          <FormEdit record={record}/>
+          <FormEdit record={record} />
           <Button  danger type="primary" onClick={()=>{record.onDelete(record.id)}}>
             Delete
           </Button>
@@ -54,21 +76,10 @@ const columns = [
     },
     width: "10%",
   },
-  // {
-  //   title : "Action",
-  //   key: "action",
-  //   render:(_,record)=>{
-  //     return (
-  //       <Space size="middle">
-  //         < record={record} />
-  //         <Button record={record} />
-  //       </Space>
-  //     );
-  //   }
-  // }
+
 ];
 
-export const OverviewUser = () => {
+export const OverviewCensor = () => {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
   const [search,setSearch] = useState("");
@@ -85,7 +96,6 @@ export const OverviewUser = () => {
     setSearch(e.target.value)
   };
   const handleAdd = (user) => {
-    console.log(user);
     setData([...data,{
       ...user,
       key:data.length+1,
@@ -99,18 +109,19 @@ export const OverviewUser = () => {
   const handleDelete = (id)=>{
     let dataSrc;
     (async()=>{
-    await deleteUserById(id);
+    await deleteCensorById(id);
     fetch();
     })();
   }
   // console.log(data)
 function fetch(){
   (async () => {
-    const data1 = await searchAllUser(search);
-    const users = data1.content;
-    const arr = users.map((user, index) => {
+    const data1 = await getAllCensorByName(search);
+    const censors = data1.content;
+    console.log(censors)
+    const arr = censors.map((censor, index) => {
       return {
-        ...user,
+        ...censor,
         key: index + 1,
         onDelete : handleDelete,
         onEdit : handleEdit
@@ -129,7 +140,7 @@ function fetch(){
     <>
       <Card
         type="inner"
-        title="User Management"
+        title="Censor Management"
         extra={
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <Space direction="vertical">
@@ -152,7 +163,7 @@ function fetch(){
               onClose={onClose}
               open={open}
               // width={""}
-              size="medium"
+              width={'500px'}
             >
               <FormAdd  handleAdd={handleAdd} onClose={onClose}/>
             </Drawer>
@@ -165,6 +176,7 @@ function fetch(){
           pagination={{
             pageSize: 10,
           }}
+          size="small"
         />
       </Card>
     </>
