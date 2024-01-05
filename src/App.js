@@ -11,5 +11,4 @@ const { Header, Sider, Content, Footer } = Layout;
 function App() {
   return <Admin />;
 }
-
 export default App;
