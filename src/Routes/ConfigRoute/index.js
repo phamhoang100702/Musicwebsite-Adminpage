@@ -6,6 +6,7 @@ import { OverviewUser } from "../../Component/Admin/Content/UserContent";
 import { OverviewSinger } from "../../Component/Admin/Content/SingerContent";
 import { OverviewSong } from "../../Component/Admin/Content/SongContent";
 import { StatisticalMain } from "../../Component/Admin/Content/StatisticalContent";
+import Login from "../../Login";
 const RoutesConfig = [
   {
     path: "/admin",

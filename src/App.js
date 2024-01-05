@@ -10,7 +10,7 @@ import Login from "./Login";
 const { Header, Sider, Content, Footer } = Layout;
 
 function App() {
-  return <Admin />;
+  return <Login />;
 }
 
 export default App;
