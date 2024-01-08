@@ -20,9 +20,9 @@ const Login = () => {
       const jwt = await loginAdmin(object);
       console.log(jwt);
       if (jwt.message == "ok") {
-        localStorage.setItem("token", jwt.content);
+        localStorage.setItem("token", jwt.content.token);
         console.log("ok " ,jwt)
-        navigate("/admin")
+        navigate("/admin-statistical")
         return;
       } else {
         console.log("not ok");

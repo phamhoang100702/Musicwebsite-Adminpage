@@ -9,31 +9,35 @@ import { StatisticalMain } from "../../Component/Admin/Content/StatisticalConten
 import Login from "../../Login";
 const RoutesConfig = [
   {
-    path: "/admin",
+    path:"",
+    element : <Login/>
+  },
+  {
     element: <Admin />,
-  },
-  {
-    path: "/admin-manage-censors",
-    element: <OverviewCensor />,
-  },
-  {
-    path: "/admin-manage-users",
-    element: <OverviewUser />,
-  },
-  {
-    path: "/admin-manage-singers",
-    element: <OverviewSinger />,
-  },
-  {
-    path: "/admin-manage-songs",
-    element: <OverviewSong />,
-  },
+    children: [
+      {
+        path: "/admin-manage-censors",
+        element: <OverviewCensor />,
+      },
+      {
+        path: "/admin-manage-users",
+        element: <OverviewUser />,
+      },
+      {
+        path: "/admin-manage-singers",
+        element: <OverviewSinger />,
+      },
+      {
+        path: "/admin-manage-songs",
+        element: <OverviewSong />,
+      },
 
-  {
-    path: "/admin-statistical",
-    element: <StatisticalMain />,
+      {
+        path: "/admin-statistical",
+        element: <StatisticalMain />,
+      },
+    ],
   },
-
 ];
 
 export default RoutesConfig;

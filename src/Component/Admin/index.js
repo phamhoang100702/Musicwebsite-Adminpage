@@ -6,6 +6,7 @@ import { HeaderAdmin } from "./Header";
 import Link from "antd/es/typography/Link";
 import { ContentAdmin } from "./Content";
 import { FooterApp } from "./Footer";
+import { Outlet } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 
 export const Admin = () => {
@@ -69,7 +70,7 @@ export const Admin = () => {
                 margin: "16px 0",
               }}
             ></Breadcrumb>
-            <ContentAdmin />
+            <Outlet />
             <FooterApp />
           </Content>
         </Layout>

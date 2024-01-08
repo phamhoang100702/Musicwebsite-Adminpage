@@ -1,9 +1,23 @@
 import { get, put, del, post } from "../../utils";
 
 // them cai creator
-export const savePlaylist = async (object) => {
+export const savePlaylistForUser = async (object) => {
+  const playlist = {
+    ...object,
+    role:"USER"
+  }
   return await post("playlist", object);
 };
+
+export const savePlaylistForMainPage = async (object) => {
+  const playlist = {
+    ...object,
+    role:"MAINPAGE"
+  }
+  return await post("playlist", object);
+};
+
+
 
 export const getFavoritePlaylistByUserId = async (userId) => {
   return await get(`user/${userId}/playlist/favorite`);
