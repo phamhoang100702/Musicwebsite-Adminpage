@@ -58,10 +58,11 @@ const EditSong = ({ record }) => {
   const [optionCategory, setOptionCategory] = useState([]);
   const [files, setFiles] = useState({});
   const dispatch = useDispatch();
+  const [checked,setChecked] = useState(false);
   const song_edit = record;
-
   const audioRef = useRef();
   const [form] = Form.useForm();
+  
   const showDrawer = () => {
     setOpen(true);
   };
@@ -86,7 +87,8 @@ const EditSong = ({ record }) => {
         id: song_edit.id,
         fileSound: song_edit.fileSound,
       };
-      if (audioRef.current.value != null) {
+      
+      if (checked) {
         let formData = new FormData();
         formData.append("sound", files["sound"]);
         const data = await uploadFileSound(formData);
@@ -95,13 +97,21 @@ const EditSong = ({ record }) => {
           ...songUpdate,
           fileSound: url,
         };
+        console.log("accept")
+        console.log(songUpdate)
       }
 
       const nData = await updateSong(songUpdate);
-      dispatch(editSong(nData.content));
+      if(nData.status=='ok'){
+        dispatch(editSong(nData.content));
+        setOpen(false);
+      }
+      else {
+        alert(nData.message)
+      }
     };
     updateSongData();
-    setOpen(false);
+    
   };
 
   const onChangeMp3 = (e) => {
@@ -110,6 +120,7 @@ const EditSong = ({ record }) => {
     if (file && file.name.endsWith(".mp3")) {
       // Assuming setSource is a function to set the source of your audio element
       let file1 = URL.createObjectURL(file);
+      
       setFiles((pre) => {
         return {
           ...pre,
@@ -117,6 +128,25 @@ const EditSong = ({ record }) => {
         };
       });
       setSource(file1);
+      setChecked(true)
+    }
+  };
+
+  const onChangeLyric = (e) => {
+    const file = e.target.files[0];
+    // console.log("change ");
+    if (file && file.name.endsWith(".mp3")) {
+      // Assuming setSource is a function to set the source of your audio element
+      let file1 = URL.createObjectURL(file);
+      
+      setFiles((pre) => {
+        return {
+          ...pre,
+          sound: file,
+        };
+      });
+      setSource(file1);
+      setChecked(true)
     }
   };
 
@@ -302,7 +332,6 @@ const EditSong = ({ record }) => {
             </Button>
           </Form.Item>
         </Form>
-        );
       </Drawer>
     </>
   );

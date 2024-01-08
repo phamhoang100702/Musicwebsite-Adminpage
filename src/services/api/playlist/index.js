@@ -17,6 +17,10 @@ export const savePlaylistForMainPage = async (object) => {
   return await post("playlist", object);
 };
 
+export const getAllMainpagePlaylistByCategory = async(userId) => {
+  return await get(`user/${userId}/playlist/favorite`);
+};
+
 
 
 export const getFavoritePlaylistByUserId = async (userId) => {
