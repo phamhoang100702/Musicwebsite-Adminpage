@@ -22,8 +22,11 @@
 
 .singer-list{
     width: 60%;
+    padding: 5px;
 }
 
 .song-list{
     width: 30%;
+    padding: 5px;
+
 }

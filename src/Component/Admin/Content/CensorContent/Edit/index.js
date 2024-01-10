@@ -61,10 +61,10 @@ const FormEdit = ({ record }) => {
   return (
     <>
       <Button type="primary" onClick={showDrawer}>
-        Edit
+        More
       </Button>
       <Drawer
-        title="EDIT censor"
+        title="Info Censor"
         placement="right"
         onClose={onClose}
         open={open}
@@ -92,7 +92,7 @@ const FormEdit = ({ record }) => {
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item name={["censor", "name"]} label="Name">
-                <Input />
+                <Input disabled={true}/>
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -127,7 +127,7 @@ const FormEdit = ({ record }) => {
                   },
                 ]}
               >
-                <Input />
+                <Input disabled={true}/>
               </Form.Item>
             </Col>
             <Col>
@@ -140,7 +140,7 @@ const FormEdit = ({ record }) => {
                   },
                 ]}
               >
-                <Password />
+                <Password disabled={true} />
               </Form.Item>
             </Col>
           </Row>
@@ -156,7 +156,7 @@ const FormEdit = ({ record }) => {
                   },
                 ]}
               >
-                <Input />
+                <Input disabled={true}/>
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -165,7 +165,7 @@ const FormEdit = ({ record }) => {
                 label="Address"
 
               >
-                <Input />
+                <Input disabled={true}/>
               </Form.Item>
             </Col>
           </Row>

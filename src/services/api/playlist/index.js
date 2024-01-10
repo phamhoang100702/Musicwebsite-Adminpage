@@ -40,22 +40,32 @@ export const searchAllPlaylistByNameForUser = async (name) => {
   return await get(`user/playlist?name=${name}`);
 };
 
-export const updatePlaylist = async (object) => {
-  return await put("playlist", object);
+export const updatePlaylist = async (playlistId) => {
+  return await put("playlist", playlistId);
 };
 
-export const deletePlaylist = async (object) => {
-  return await del(`playlist/${object}`);
+export const deletePlaylist = async (playlistId) => {
+  return await del(`playlist/${playlistId}`);
 };
 
-export const getAllSongByPlaylist = async (object) => {
-  return await get(`/playlist/${object}/song`);
+// get all  Song 
+export const getAllSongByPlaylistId = async (playlistId) => {
+  return await get(`playlist/${playlistId}/song`);
 };
 
 export const addSongToPlaylist = async (playlistId, songId) => {
-  return await post(`/playlist/${playlistId}/song/${songId}`);
+  return await post(`playlist/${playlistId}/song/${songId}`);
+};
+// add array to playlist
+export const addSongsToPlaylist = async (playlistId, object) => {
+  return await post(`playlist/${playlistId}/song`,object);
 };
 
 export const removeSongToPlaylist = async (playlistId, songId) => {
-  return await del(`/playlist/${playlistId}/song/${songId}`);
+  return await del(`playlist/${playlistId}/song/${songId}`);
 };
+
+
+export const getTotalPlaylist = async()=>{
+  return await get(`playlist/count`)
+}

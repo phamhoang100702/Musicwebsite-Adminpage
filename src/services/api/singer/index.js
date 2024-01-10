@@ -43,3 +43,11 @@ export const getAlbumBySingerId = async(singerId)=>{
 export const uploadAvatar = async (formData) =>{
   return await uploadFile("s3/avatar",formData)
 }
+// top singer 
+export const getTopSinger = async(top)=>{
+  return await get(`singer/top/${top}`)
+}
+
+export const getTotalSinger = async()=>{
+  return await get(`singer/count`)
+}

@@ -8,7 +8,7 @@ const SearchBar = ()=>{
     const dispatch = useDispatch();
     const onChange = (e)=>{
         setSearchText(e.target.value)
-        dispatch(searchSong(searchText))
+        dispatch(searchSong(e.target.value))
     }
     const onSearch = ()=>{
         dispatch(searchSong(searchText))

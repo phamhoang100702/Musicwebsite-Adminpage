@@ -18,3 +18,7 @@ export const updateCensor = async(obj) =>{
 export const deleteCensorById = async(id)=>{
     return await del(`censor/${id}`)
 }
+
+export const getTotalCensor = async()=>{
+    return await get(`censor/count`)
+}

@@ -12,18 +12,15 @@ import {
 } from "../../../../../../services/api/song";
 import { editSong } from "../../../../../../redux/actions/admin/song";
 
-const validateMessages = {
-
-};
+const validateMessages = {};
 
 const handleSinger = (singers) => {
   const arr = singers.map((singer) => {
     let arr1 = [];
-    if(singer.value){
-     arr1 = singer.value.split(";");
-    } 
-    else {
-      arr1 = singer.split(";")
+    if (singer.value) {
+      arr1 = singer.value.split(";");
+    } else {
+      arr1 = singer.split(";");
     }
     return {
       id: arr1[1],
@@ -34,12 +31,11 @@ const handleSinger = (singers) => {
 
 const handleCategory = (categories) => {
   const arr = categories.map((category) => {
-    let arr1 ;
-    if(category.value){
-     arr1 = category.value.split(";");
-    } 
-    else {
-      arr1 = category.split(";")
+    let arr1;
+    if (category.value) {
+      arr1 = category.value.split(";");
+    } else {
+      arr1 = category.split(";");
     }
     return {
       id: arr1[1],
@@ -47,8 +43,6 @@ const handleCategory = (categories) => {
   });
   return arr;
 };
-
-
 
 const EditSong = ({ record }) => {
   const [open, setOpen] = useState(false);
@@ -58,11 +52,11 @@ const EditSong = ({ record }) => {
   const [optionCategory, setOptionCategory] = useState([]);
   const [files, setFiles] = useState({});
   const dispatch = useDispatch();
-  const [checked,setChecked] = useState(false);
+  const [checked, setChecked] = useState(false);
   const song_edit = record;
   const audioRef = useRef();
   const [form] = Form.useForm();
-  
+
   const showDrawer = () => {
     setOpen(true);
   };
@@ -72,10 +66,9 @@ const EditSong = ({ record }) => {
     setOpen(false);
   };
 
-
   const onFinish = (values) => {
-    console.log("edit")
-    console.log(values)
+    console.log("edit");
+    console.log(values);
     const updateSongData = async () => {
       let songUpdate;
       const singers = handleSinger(values.song.singers);
@@ -87,7 +80,7 @@ const EditSong = ({ record }) => {
         id: song_edit.id,
         fileSound: song_edit.fileSound,
       };
-      
+
       if (checked) {
         let formData = new FormData();
         formData.append("sound", files["sound"]);
@@ -97,21 +90,19 @@ const EditSong = ({ record }) => {
           ...songUpdate,
           fileSound: url,
         };
-        console.log("accept")
-        console.log(songUpdate)
+        console.log("accept");
+        console.log(songUpdate);
       }
 
       const nData = await updateSong(songUpdate);
-      if(nData.status=='ok'){
+      if (nData.status == "ok") {
         dispatch(editSong(nData.content));
         setOpen(false);
-      }
-      else {
-        alert(nData.message)
+      } else {
+        alert(nData.message);
       }
     };
     updateSongData();
-    
   };
 
   const onChangeMp3 = (e) => {
@@ -120,7 +111,7 @@ const EditSong = ({ record }) => {
     if (file && file.name.endsWith(".mp3")) {
       // Assuming setSource is a function to set the source of your audio element
       let file1 = URL.createObjectURL(file);
-      
+
       setFiles((pre) => {
         return {
           ...pre,
@@ -128,7 +119,7 @@ const EditSong = ({ record }) => {
         };
       });
       setSource(file1);
-      setChecked(true)
+      setChecked(true);
     }
   };
 
@@ -138,7 +129,7 @@ const EditSong = ({ record }) => {
     if (file && file.name.endsWith(".mp3")) {
       // Assuming setSource is a function to set the source of your audio element
       let file1 = URL.createObjectURL(file);
-      
+
       setFiles((pre) => {
         return {
           ...pre,
@@ -146,7 +137,7 @@ const EditSong = ({ record }) => {
         };
       });
       setSource(file1);
-      setChecked(true)
+      setChecked(true);
     }
   };
 
@@ -182,10 +173,10 @@ const EditSong = ({ record }) => {
   return (
     <>
       <Button type="primary" onClick={showDrawer}>
-        Open
+        More
       </Button>
       <Drawer
-        title="Edit Song"
+        title="Song Info"
         placement="right"
         onClose={onClose}
         open={open}
@@ -232,7 +223,7 @@ const EditSong = ({ record }) => {
                   },
                 ]}
               >
-                <Input width="100%" />
+                <Input width="100%" disabled={true} />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -249,9 +240,9 @@ const EditSong = ({ record }) => {
                       value: 0,
                     },
                     {
-                      label:"Pending",
-                      value: 1
-                    }
+                      label: "Pending",
+                      value: 1,
+                    },
                   ]}
                 />
               </Form.Item>
@@ -269,6 +260,7 @@ const EditSong = ({ record }) => {
                 ]}
               >
                 <Select
+                  disabled={true}
                   mode="multiple"
                   placeholder="select singer"
                   optionLabelProp="label"
@@ -289,6 +281,7 @@ const EditSong = ({ record }) => {
             <Col span={12}>
               <Form.Item name={["song", "categories"]} label="Categories">
                 <Select
+                  disabled={true}
                   mode="multiple"
                   style={{
                     width: "100%",
@@ -307,7 +300,7 @@ const EditSong = ({ record }) => {
                 />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            {/* <Col span={12}>
               <Form.Item name={["song", "fileSound"]} label="Modifed File">
                 <Input
                   type="file"
@@ -316,7 +309,7 @@ const EditSong = ({ record }) => {
                   ref={audioRef}
                 />
               </Form.Item>
-            </Col>
+            </Col> */}
           </Row>
           <Row gutter={16}>
             <Col span={24}>

@@ -62,10 +62,10 @@ const FormEdit = ({ record }) => {
   return (
     <>
       <Button type="primary" onClick={showDrawer}>
-        Edit
+        More
       </Button>
       <Drawer
-        title="EDIT SINGER"
+        title="Info"
         placement="right"
         onClose={onClose}
         open={open}
@@ -93,12 +93,12 @@ const FormEdit = ({ record }) => {
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item name={["singer", "name"]} label="Name">
-                <Input />
+                <Input disabled={true}/>
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item name={["singer", "status"]} label="Status">
-                <Select
+                <Select 
                   width="100%"
                   options={[
                     {
@@ -125,7 +125,7 @@ const FormEdit = ({ record }) => {
                   },
                 ]}
               >
-                <Input />
+                <Input disabled={true} />
               </Form.Item>
             </Col>
           </Row>
@@ -135,7 +135,7 @@ const FormEdit = ({ record }) => {
                 name={["singer", "nickName"]}
                 label="NickName"
               >
-                <Input />
+                <Input disabled={true}/>
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -148,7 +148,7 @@ const FormEdit = ({ record }) => {
                   },
                 ]}
               >
-                <Password />
+                <Password disabled={true} />
               </Form.Item>
             </Col>
           </Row>
@@ -159,7 +159,7 @@ const FormEdit = ({ record }) => {
                 name={["singer", "bio"]}
                 label="bio"
               >
-                <Input />
+                <Input disabled={true}/>
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -167,14 +167,14 @@ const FormEdit = ({ record }) => {
                 name={["singer", "socialMediaLink"]}
                 label="Social Link"
               >
-                <Input />
+                <Input disabled={true}/>
               </Form.Item>
             </Col>
           </Row>
 
           <Form.Item>
             <Button type="primary" htmlType="submit">
-              Submit
+              Edit
             </Button>
           </Form.Item>
         </Form>

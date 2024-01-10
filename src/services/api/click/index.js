@@ -18,3 +18,10 @@ export const countClickByWeek = async()=>{
 export const countClickAll =async ()=>{
     return await get("click/all");
 }
+
+export const getTotalClick =async ()=>{
+    return await get("click/count");
+}
+
+
+/// get top song

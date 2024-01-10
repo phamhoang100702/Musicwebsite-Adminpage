@@ -184,7 +184,7 @@ const FormAdd = ({ handleAdd, onClose }) => {
           </Form.Item>
         </Col>
       </Row>
-      <Form.Item name={['singer','avatar']}>
+      <Form.Item name={['singer','avatar']} label="Avatar">
             <Input type="file" onChange={onChangeImg} id="fileAvatar"/>
       </Form.Item>
 

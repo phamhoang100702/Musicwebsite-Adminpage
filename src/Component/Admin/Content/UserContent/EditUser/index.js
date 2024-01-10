@@ -58,10 +58,10 @@ const FormEdit = ({ record }) => {
   return (
     <>
       <Button type="primary" onClick={showDrawer}>
-        Edit
+        More
       </Button>
       <Drawer
-        title="EDIT USER"
+        title="User Info"
         placement="right"
         onClose={onClose}
         open={open}
@@ -83,7 +83,7 @@ const FormEdit = ({ record }) => {
           }}
         >
           <Form.Item name={["user", "name"]} label="Name">
-            <Input />
+            <Input disabled={true}/>
           </Form.Item>
           <Form.Item
             name={["user", "email"]}
@@ -94,7 +94,7 @@ const FormEdit = ({ record }) => {
               },
             ]}
           >
-            <Input />
+            <Input disabled={true}/>
           </Form.Item>
           <Form.Item
             name={["user", "password"]}
@@ -105,7 +105,7 @@ const FormEdit = ({ record }) => {
               },
             ]}
           >
-            <Password />
+            <Password disabled={true}/>
           </Form.Item>
 
           <Form.Item>

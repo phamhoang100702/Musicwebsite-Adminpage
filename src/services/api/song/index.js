@@ -57,3 +57,8 @@ export const uploadFileSound = async (formData) =>{
 export const getSongPage = async(name="",pageNo=1,pageSize=10)=>{
     return await get(`song/page?name=${name}&pageNo=${pageNo}&pageSize=${10}`)
 }
+
+
+export const getTotalSong = async()=>{
+    return await get(`song/count`)
+}

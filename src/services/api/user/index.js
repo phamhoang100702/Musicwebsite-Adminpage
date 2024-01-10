@@ -18,3 +18,7 @@ export const updateUser = async(obj) =>{
 export const deleteUserById = async(id)=>{
     return await del(`user/${id}`)
 }
+
+export const getTotalUser = async()=>{
+    return await get(`user/count`)
+}
