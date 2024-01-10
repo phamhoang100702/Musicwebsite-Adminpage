@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input, Row, Col, Select } from "antd";
+import { Button, Form, Input, Row, Col, Select, message } from "antd";
 import "react-h5-audio-player/lib/styles.css";
 import Password from "antd/es/input/Password";
 
-import { addSinger } from "../../../../../services/api/singer";
+import { addSinger, uploadAvatar } from "../../../../../services/api/singer";
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
   required: "${label} is required!",
@@ -16,7 +16,11 @@ const validateMessages = {
 
 const FormAdd = ({ handleAdd, onClose }) => {
   const [form] = Form.useForm();
+  const [files,setFiles] = useState({});
   const onFinish = (values) => {
+    let form1 = new FormData();
+ 
+    form1.append("avatar", files["avatar"]);
     // let songSubmi
     console.log(values.singer);
     if (values.singer.status == null) {
@@ -32,7 +36,20 @@ const FormAdd = ({ handleAdd, onClose }) => {
       return;
     }
     (async () => {
-      const newUser = await addSinger(values.singer);
+      const avatarUrl = await uploadAvatar(form1);
+      const newSinger = {
+        ...values.singer
+      }
+      console.log(avatarUrl.content)
+      if(avatarUrl.status=='ok'){
+        newSinger = {
+          ...values.singer,
+          avatar : avatarUrl.content
+        }
+        console.log(newSinger)
+      }
+      
+      const newUser = await addSinger(newSinger);
       console.log(newUser);
       handleAdd(newUser.content);
     })();
@@ -47,7 +64,27 @@ const FormAdd = ({ handleAdd, onClose }) => {
         socialMediaLink: "",
       },
     });
+    
     onClose();
+  };
+
+  const onChangeImg = (e) => {
+    let filePath = document.querySelector("#fileAvatar");
+    filePath = filePath.files[0];
+    if (
+      filePath &&
+      (filePath.name.endsWith(".jpg") ||
+        filePath.name.endsWith(".png") ||
+        filePath.name.endsWith(".jpeg"))
+    ) {
+      // setDisabled(!disabled);
+      setFiles((pre) => {
+        return {
+          ...pre,
+          avatar: filePath,
+        };
+      });
+    }
   };
   // api
 
@@ -132,7 +169,7 @@ const FormAdd = ({ handleAdd, onClose }) => {
           <Form.Item
             name={["singer", "bio"]}
             label="Bio"
-            rules={[
+            rules={[  
               {
                 required: "true",
               },
@@ -147,6 +184,9 @@ const FormAdd = ({ handleAdd, onClose }) => {
           </Form.Item>
         </Col>
       </Row>
+      <Form.Item name={['singer','avatar']}>
+            <Input type="file" onChange={onChangeImg} id="fileAvatar"/>
+      </Form.Item>
 
       <Form.Item>
         <Button type="primary" htmlType="submit">

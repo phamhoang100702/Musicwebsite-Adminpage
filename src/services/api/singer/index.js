@@ -1,4 +1,4 @@
-import { del, get, post, put } from "../../utils";
+import { del, get, post, put ,uploadFile} from "../../utils";
 
 export const getSingerByNameAndNickName = async (name="",nickName="") => {
   return await get(`singer?name=${name}`);
@@ -37,4 +37,9 @@ export const getAllUnActiveSinger = async ()=>{
 
 export const getAlbumBySingerId = async(singerId)=>{
   return await get(`singer/${singerId}/album`)
+}
+
+
+export const uploadAvatar = async (formData) =>{
+  return await uploadFile("s3/avatar",formData)
 }
