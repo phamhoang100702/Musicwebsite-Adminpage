@@ -5,14 +5,14 @@ export const getAllSong = async ()=>{
     return await get("song");
 }
 
-export const getAllPrivateSong = async()=>{
+export const getAllPrivateSong = async(name)=>{
     const status  = 0;
-    return await get(`song?status=${status}`)
+    return await get(`song?status=${status}&name=${name}`)
 }
 
-export const getAllPendingSong = async ()=>{
+export const getAllPendingSong = async (name)=>{
     const status  = 1;
-    return await get(`song?status=${status}`)
+    return await get(`song?status=${status}&name=${name}`)
 }
 
 export const getSongById = async(id)=>{
@@ -20,9 +20,9 @@ export const getSongById = async(id)=>{
 }
 
 
-export const getAllActiveSong = async ()=>{
+export const getAllActiveSong = async (name)=>{
     const status  = 2;
-    return await get(`song?status=${status}`)
+    return await get(`song?status=${status}&name=${name}`)
 }
 export const getSongByName = async (name="") =>{
     return await get("song?" + "name="+name)

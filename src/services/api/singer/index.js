@@ -25,14 +25,14 @@ export const getAllSongBySingerId =async (singerId)=>{
   return await get(`singer/${singerId}/song`)
 }
 
-export const getAllActiveSinger = async ()=>{
+export const getAllActiveSinger = async (name)=>{
   const status = true;
-  return await get(`singer?status=${status}`)
+  return await get(`singer?status=${status}&name=${name}`)
 }
 
-export const getAllUnActiveSinger = async ()=>{
+export const getAllUnActiveSinger = async (name)=>{
   const status = false;
-  return await get(`singer?status=${status}`)
+  return await get(`singer?status=${status}&name=${name}`)
 }
 
 export const getAlbumBySingerId = async(singerId)=>{
