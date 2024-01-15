@@ -3,6 +3,7 @@ import { Button, Form, Input, Row } from "antd";
 import "react-h5-audio-player/lib/styles.css";
 import Password from "antd/es/input/Password";
 import { addUser } from "../../../../../services/api/user";
+import { registerUser } from "../../../../../services/api/auth";
 
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
@@ -20,7 +21,7 @@ const FormAdd = ({ handleAdd, onClose }) => {
     // let songSubmi
     console.log(values.user);
     (async()=>{
-      const newUser = await addUser(values.user);
+      const newUser = await registerUser(values.user);
       console.log(newUser)
       handleAdd(newUser.content);
     })()

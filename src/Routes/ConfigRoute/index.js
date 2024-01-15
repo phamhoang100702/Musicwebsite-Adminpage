@@ -8,7 +8,10 @@ import { OverviewSong } from "../../Component/Admin/Content/SongContent";
 import { StatisticalMain } from "../../Component/Admin/Content/StatisticalContent";
 import Login from "../../Login";
 const RoutesConfig = [
-
+  {
+    path: "",
+    element: <Login />,
+  },
   {
     element: <Admin />,
     children: [

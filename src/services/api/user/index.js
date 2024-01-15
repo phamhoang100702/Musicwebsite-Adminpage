@@ -22,3 +22,18 @@ export const deleteUserById = async(id)=>{
 export const getTotalUser = async()=>{
     return await get(`user/count`)
 }
+
+export const getFollowedSinger = async(id)=>{
+    return await get(`user/${id}/singer`)
+}
+
+
+export const addFollow = async(userId,singerId)=>{
+    return await post(`singer/${singerId}/user/${userId}`)
+  }
+  
+  
+  export const removeFollow = async(userId,singerId)=>{
+    return await del(`singer/${singerId}/user/${userId}`)
+  }
+  

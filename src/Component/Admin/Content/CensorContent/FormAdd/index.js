@@ -3,12 +3,12 @@ import { Button, Form, Input, Row, Col, Select } from "antd";
 import "react-h5-audio-player/lib/styles.css";
 import Password from "antd/es/input/Password";
 import { addCensor } from "../../../../../services/api/censor";
+import { registerCensor } from "../../../../../services/api/auth";
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
   required: "${label} is required!",
   types: {
     email: "${label} is not a valid email!",
-    number: "${label} is not a valid number!",
   },
 };
 /* eslint-enable no-template-curly-in-string */
@@ -18,8 +18,8 @@ const FormAdd = ({ handleAdd, onClose }) => {
   const onFinish = (values) => {
     // let songSubmi
     console.log(values.censor);
-    if(values.censor.status==null) {
-      values.censor.status=true
+    if (values.censor.status == null) {
+      values.censor.status = true;
     }
     if (
       values.censor.email == "" ||
@@ -31,7 +31,7 @@ const FormAdd = ({ handleAdd, onClose }) => {
       return;
     }
     (async () => {
-      const newUser = await addCensor(values.censor);
+      const newUser = await registerCensor(values.censor);
       console.log(newUser);
       handleAdd(newUser.content);
     })();
@@ -101,15 +101,7 @@ const FormAdd = ({ handleAdd, onClose }) => {
           </Form.Item>
         </Col>
         <Col>
-          <Form.Item
-            name={["censor", "password"]}
-            label="Password"
-            rules={[
-              {
-                required: "true",
-              },
-            ]}
-          >
+          <Form.Item name={["censor", "password"]} label="Password">
             <Password />
           </Form.Item>
         </Col>
@@ -117,24 +109,12 @@ const FormAdd = ({ handleAdd, onClose }) => {
 
       <Row gutter={16}>
         <Col span={12}>
-          <Form.Item
-            name={["censor", "phone"]}
-            label="phone"
-            rules={[
-              {
-                required: "true",
-              },
-            ]}
-          >
+          <Form.Item name={["censor", "phone"]} label="phone">
             <Input />
           </Form.Item>
         </Col>
         <Col span={12}>
-          <Form.Item
-            name={["censor", "address"]}
-            label="Address"
-
-          >
+          <Form.Item name={["censor", "address"]} label="Address">
             <Input />
           </Form.Item>
         </Col>

@@ -7,6 +7,7 @@ import {
   getSingerByNameAndNickName,
   deleteSingerById,
 } from "../../../../services/api/singer";
+import { getLocalStorage } from "../../../../services/localstorage";
 
 // const handleDelete = () => {};
 const columns = [
@@ -125,6 +126,7 @@ export const OverviewSinger = () => {
   // console.log(data)
   function fetch() {
     (async () => {
+      console.log(getLocalStorage("user-token"))
       const data1 = await getSingerByNameAndNickName(search);
       const singers = data1.content;
       console.log(singers);

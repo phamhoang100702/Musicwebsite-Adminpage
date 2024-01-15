@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input, Row, Col, Select, message } from "antd";
+import { Button, Form, Input, Row, Col, Select, message, notification } from "antd";
 import "react-h5-audio-player/lib/styles.css";
 import Password from "antd/es/input/Password";
 
 import { addSinger, uploadAvatar } from "../../../../../services/api/singer";
+import { registerSinger } from "../../../../../services/api/auth";
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
   required: "${label} is required!",
@@ -17,6 +18,7 @@ const validateMessages = {
 const FormAdd = ({ handleAdd, onClose }) => {
   const [form] = Form.useForm();
   const [files,setFiles] = useState({});
+  const [api,contextHodler] = notification.useNotification();
   const onFinish = (values) => {
     let form1 = new FormData();
  
@@ -49,7 +51,7 @@ const FormAdd = ({ handleAdd, onClose }) => {
         console.log(newSinger)
       }
       
-      const newUser = await addSinger(newSinger);
+      const newUser = await registerSinger(newSinger);
       console.log(newUser);
       handleAdd(newUser.content);
     })();
@@ -169,11 +171,7 @@ const FormAdd = ({ handleAdd, onClose }) => {
           <Form.Item
             name={["singer", "bio"]}
             label="Bio"
-            rules={[  
-              {
-                required: "true",
-              },
-            ]}
+
           >
             <Input />
           </Form.Item>

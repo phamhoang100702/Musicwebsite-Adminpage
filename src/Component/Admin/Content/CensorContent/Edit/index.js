@@ -134,11 +134,6 @@ const FormEdit = ({ record }) => {
               <Form.Item
                 name={["censor", "password"]}
                 label="Password"
-                rules={[
-                  {
-                    required: "true",
-                  },
-                ]}
               >
                 <Password disabled={true} />
               </Form.Item>
@@ -150,11 +145,6 @@ const FormEdit = ({ record }) => {
               <Form.Item
                 name={["censor", "phone"]}
                 label="phone"
-                rules={[
-                  {
-                    required: "true",
-                  },
-                ]}
               >
                 <Input disabled={true}/>
               </Form.Item>

@@ -8,6 +8,10 @@ export const addSinger = async(object)=>{
   return await post(`singer`,object)
 }
 
+export const getSingerById = async(userId,object)=>{
+  return await post(`singer/${userId}`,object)
+}
+
 export const updateSinger = async(object= {}) => {
   return await put("singer",object)
 };
@@ -51,3 +55,8 @@ export const getTopSinger = async(top)=>{
 export const getTotalSinger = async()=>{
   return await get(`singer/count`)
 }
+
+export const getListFollower = async(id)=>{
+  return await get(`singer/${id}/follower`)
+}
+
