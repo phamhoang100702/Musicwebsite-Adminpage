@@ -39,13 +39,15 @@ const FormAdd = ({ handleAdd, onClose }) => {
     }
     (async () => {
       const avatarUrl = await uploadAvatar(form1);
-      const newSinger = {
+      let newSinger = {
         ...values.singer
       }
-      console.log(avatarUrl.content)
-      if(avatarUrl.status=='ok'){
+      console.log("First")
+      console.log(avatarUrl)
+      if(avatarUrl.status =='ok'){
+        console.log("vao day ")
         newSinger = {
-          ...values.singer,
+          ...newSinger,
           avatar : avatarUrl.content
         }
         console.log(newSinger)

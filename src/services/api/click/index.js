@@ -23,5 +23,17 @@ export const getTotalClick =async ()=>{
     return await get("click/count");
 }
 
+// http://localhost:9000/api/v1/click/history/user/20
+
 
 /// get top song
+
+
+export const getHistoryByUserId =async (userId)=>{
+    return await get(`click/history/user/${userId}`);
+}
+
+export const getTopSongWithMostListensByCategory =async ()=>{
+    return await get(`song/topByCategory`);
+}
+
