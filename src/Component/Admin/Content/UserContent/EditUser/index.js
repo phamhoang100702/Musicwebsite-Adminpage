@@ -45,6 +45,10 @@ const FormEdit = ({ record }) => {
       record.onEdit();
     })();
     onClose();
+    
+  };
+  // api
+  useEffect(()=>{
     form.setFieldsValue({
       user: {
         name: record.name,
@@ -52,8 +56,7 @@ const FormEdit = ({ record }) => {
         password: record.password,
       },
     });
-  };
-  // api
+  },[record])
 
   return (
     <>

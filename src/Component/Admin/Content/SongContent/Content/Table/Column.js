@@ -7,7 +7,6 @@ import { deleteSong } from "../../../../../../redux/actions/admin/song";
 const ButtonHandleDelete = ({ record }) => {
   const dispatch = useDispatch();
   const handleDelete = () => {
-    console.log(record)
     const del = async () => {
       const dt = await deleteSongById(record.id);
     };
@@ -92,9 +91,11 @@ const columns = [
     title: "Action",
     key: "action",
     render: (_, record) => {
+      
       return (
         <Space size="middle">
           <EditSong record={record} />
+
           <ButtonHandleDelete record={record} />
         </Space>
       );

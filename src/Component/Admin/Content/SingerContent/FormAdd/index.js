@@ -54,8 +54,11 @@ const FormAdd = ({ handleAdd, onClose }) => {
       }
       
       const newUser = await registerSinger(newSinger);
-      console.log(newUser);
-      handleAdd(newUser.content);
+      if(newUser.status == 'ok'){
+        console.log(newUser);
+        handleAdd(newUser.content);
+      }
+      
     })();
     form.setFieldsValue({
       singer: {

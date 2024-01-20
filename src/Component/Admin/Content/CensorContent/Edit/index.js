@@ -45,6 +45,10 @@ const FormEdit = ({ record }) => {
       record.onEdit();
     })();
     onClose();
+    
+  };
+  // api
+  useEffect(()=>{
     form.setFieldsValue({
       censor: {
         name: record.name,
@@ -55,8 +59,7 @@ const FormEdit = ({ record }) => {
         status: record.status,
       },
     });
-  };
-  // api
+  },[record])
 
   return (
     <>

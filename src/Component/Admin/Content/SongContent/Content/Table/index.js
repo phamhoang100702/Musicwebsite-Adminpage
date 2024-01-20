@@ -32,9 +32,9 @@ const ListSong = () => {
           key: index + 1,
         };
       });
-      dispatch(setListSong(data1));
-      setPageSize(listSong.size);
-      setTotalPages(listSong.totalPages * pageSize);
+        dispatch(setListSong(data1))
+        setPageSize(listSong.size);
+        setTotalPages(listSong.totalPages * pageSize);      
       setLoading(false)
     }
     fetch(name, page, pageSize);

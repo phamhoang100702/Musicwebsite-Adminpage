@@ -21,6 +21,9 @@ const items = [
 ];
 
 export const HeaderAdmin = () => {
+  const handleClick = ({values})=>{
+    console.log(values)
+  }
   return (
     <>
       <Header
@@ -36,6 +39,7 @@ export const HeaderAdmin = () => {
             menu={{
               items,
             }}
+            onClick={handleClick}
           >
             ADMIN
           </Dropdown.Button>

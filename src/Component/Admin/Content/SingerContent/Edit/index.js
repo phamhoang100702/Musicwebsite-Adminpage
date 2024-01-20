@@ -46,6 +46,9 @@ const FormEdit = ({ record }) => {
       record.onEdit();
     })();
     onClose();
+  };
+  // api
+  useEffect(()=>{
     form.setFieldsValue({
       singer: {
         name: record.name,
@@ -56,8 +59,7 @@ const FormEdit = ({ record }) => {
         status: record.status,
       },
     });
-  };
-  // api
+  },[record])
 
   return (
     <>

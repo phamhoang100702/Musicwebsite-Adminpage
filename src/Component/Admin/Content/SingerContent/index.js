@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Space, Table, Drawer, Tag } from "antd";
+import { Button, Card, Space, Table, Drawer, Tag, Popconfirm } from "antd";
 import Search from "antd/es/input/Search";
 import FormAdd from "./FormAdd";
 import FormEdit from "./Edit";
@@ -70,15 +70,22 @@ const columns = [
       return (
         <Space size="middle">
           <FormEdit record={record} />
-          <Button
-            danger
-            type="primary"
-            onClick={() => {
-              record.onDelete(record.id);
-            }}
+          <Popconfirm
+            title="Delete "
+            description="Are you sure to delete?"
+            okText="Yes"
+            cancelText="No"
           >
-            Delete
-          </Button>
+            <Button
+              danger
+              type="primary"
+              onClick={() => {
+                record.onDelete(record.id);
+              }}
+            >
+              Delete
+            </Button>
+          </Popconfirm>
         </Space>
       );
     },
@@ -90,6 +97,7 @@ export const OverviewSinger = () => {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const [loading,setLoading] = useState(false)
   const showDrawer = () => {
     setOpen(true);
   };
@@ -126,7 +134,6 @@ export const OverviewSinger = () => {
   // console.log(data)
   function fetch() {
     (async () => {
-      console.log(getLocalStorage("user-token"))
       const data1 = await getSingerByNameAndNickName(search);
       const singers = data1.content;
       console.log(singers);
@@ -140,7 +147,7 @@ export const OverviewSinger = () => {
       });
       console.log("chay vao day");
       // console.log(arr)
-      setData([...arr]);
+     setData([...arr]);
     })();
   }
 

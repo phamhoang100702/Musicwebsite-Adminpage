@@ -8,7 +8,7 @@ export const get = async (path) => {
     headers:  {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${getLocalStorage("user-token")}`,
+      "Authorization": `Bearer ${getLocalStorage("user-token")}`,
     },
   });
   return await response.json();

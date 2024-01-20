@@ -56,6 +56,7 @@ const EditSong = ({ record }) => {
   const song_edit = record;
   const audioRef = useRef();
   const [form] = Form.useForm();
+  console.log( "di vao day ",record);
 
   const showDrawer = () => {
     setOpen(true);
@@ -169,7 +170,30 @@ const EditSong = ({ record }) => {
       setOptionSingers(opt1);
     };
     fetchApi();
-  }, []);
+    form.setFieldsValue({
+      song: {
+        name: song_edit.name,
+        status: song_edit.status,
+        singers: song_edit.singers.map((singer) => {
+          return {
+            value: singer.nickName + ";" + singer.id,
+            label: singer.nickName,
+            key: singer.id,
+            desc: singer.nickName + "(" + singer.name + ")",
+          };
+        }),
+        categories: song_edit.categories.map((category) => {
+          return {
+            value: category.name + ";" + category.id,
+            label: category.name,
+            key: category.id,
+            desc: category.name,
+          };
+        }),
+      },
+    });
+    
+  }, [record]);
   return (
     <>
       <Button type="primary" onClick={showDrawer}>
