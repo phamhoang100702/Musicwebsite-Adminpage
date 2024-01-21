@@ -24,7 +24,7 @@ const FormAdd = ({ handleAdd, onClose }) => {
  
     form1.append("avatar", files["avatar"]);
     // let songSubmi
-    console.log(values.singer);
+    // console.log(values.singer);
     if (values.singer.status == null) {
       values.singer.status = true;
     }
@@ -42,20 +42,20 @@ const FormAdd = ({ handleAdd, onClose }) => {
       let newSinger = {
         ...values.singer
       }
-      console.log("First")
-      console.log(avatarUrl)
+      // console.log("First")
+      // console.log(avatarUrl)
       if(avatarUrl.status =='ok'){
-        console.log("vao day ")
+        // console.log("vao day ")
         newSinger = {
           ...newSinger,
           avatar : avatarUrl.content
         }
-        console.log(newSinger)
+        // console.log(newSinger)
       }
       
       const newUser = await registerSinger(newSinger);
       if(newUser.status == 'ok'){
-        console.log(newUser);
+        // console.log(newUser);
         handleAdd(newUser.content);
       }
       

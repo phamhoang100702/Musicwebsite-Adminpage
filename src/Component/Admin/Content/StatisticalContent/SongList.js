@@ -14,17 +14,17 @@ const SongList = ({ time }) => {
     (async () => {
       let data;
       if (time.includes("All")) {
-        console.log(time);
+        // console.log(time);
         data = await countClickAll();
       } else if (time.includes("Month")) {
-        console.log(time);
+        // console.log(time);
 
         data = await countClickByMonth();
       } else if (time.includes("Week")) {
-        console.log(time);
+        // console.log(time);
         data = await countClickByWeek();
       } else {
-        console.log(time);
+        // console.log(time);
         data = await countClickByDay();
       }
       const arr = data.content.map((record) => {

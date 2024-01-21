@@ -15,6 +15,12 @@ export const loginAdmin = async (object) => {
   return await post("login/admin", object);
 };
 
+export const decode = async(token)=>{
+  return await post("decode",{
+    token : token
+  })
+}
+
 export const loginUser = async (object) => {
   return await post("login/user", object);
 };

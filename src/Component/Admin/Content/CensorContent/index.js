@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Button, Card, Space, Table, Drawer, Tag, Popconfirm } from "antd";
 import Search from "antd/es/input/Search";
 import FormAdd from "./FormAdd";
@@ -7,6 +7,11 @@ import {
   getAllCensorByName,
   deleteCensorById,
 } from "../../../../services/api/censor";
+import { getLocalStorage } from "../../../../services/localstorage";
+import { decode } from "../../../../services/api/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { setAuth } from "../../../../redux/actions/auth";
+import { Navigate, useNavigate } from "react-router-dom";
 
 // const handleDelete = () => {};
 const columns = [
@@ -95,6 +100,9 @@ export const OverviewCensor = () => {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const authData = useSelector((state)=>state.authReducer.authData)
   const showDrawer = () => {
     setOpen(true);
   };
@@ -133,7 +141,7 @@ export const OverviewCensor = () => {
     (async () => {
       const data1 = await getAllCensorByName(search);
       const censors = data1.content;
-      console.log(censors);
+      // console.log(censors);
       const arr = censors.map((censor, index) => {
         return {
           ...censor,
@@ -142,7 +150,7 @@ export const OverviewCensor = () => {
           onEdit: handleEdit,
         };
       });
-      console.log("chay vao day");
+      // console.log("chay vao day");
       // console.log(arr)
       setData([...arr]);
     })();
@@ -151,6 +159,24 @@ export const OverviewCensor = () => {
   useEffect(() => {
     fetch();
   }, [search]);
+  useLayoutEffect(()=>{
+    if(getLocalStorage('user-token')!=""){
+      if(authData==null){
+      (async()=>{
+        const data = await decode(getLocalStorage('user-token'));
+        if(data.status!="ok") {
+          window.location.replace("http://localhost:9100/")}
+        else dispatch(setAuth(data.content));
+      })()
+    }
+      fetch();
+    }
+    else {
+      navigate("/")
+      window.location.reload();
+      return;
+    }
+  },[])
   return (
     <>
       <Card

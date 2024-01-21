@@ -37,22 +37,22 @@ export const StatisticalDetails = () => {
       const totalPlaylist = await getTotalPlaylist();
       const totalSong = await getTotalSong();
       const totalListen = await getTotalClick();
-      console.log("songs : ",totalSong.content);
-      console.log("censors : ",totalCensor.content)
-      console.log("playlists : ",totalPlaylist.content);
-      console.log("users : ",totalUser.content)
-      console.log("singers : ",totalSinger.content);
-      console.log("listens : ",totalListen.content);
+      // console.log("songs : ",totalSong.content);
+      // console.log("censors : ",totalCensor.content)
+      // console.log("playlists : ",totalPlaylist.content);
+      // console.log("users : ",totalUser.content)
+      // console.log("singers : ",totalSinger.content);
+      // console.log("listens : ",totalListen.content);
 
       setData((pre)=>{
         return {
           ...pre,
-          totalCensor : totalCensor.content,
-          totalSinger : totalSinger.content,
-          totalPlaylist : totalPlaylist.content,
-          totalUser : totalUser.content,
-          totalSong : totalSong.content,
-          totalListen : totalListen.content
+          totalCensor : totalCensor.status=="ok" ? totalCensor.content : 0,
+          totalSinger : totalSinger.status=="ok" ? totalSinger.content : 0,
+          totalPlaylist : totalPlaylist.status == "ok" ?totalPlaylist.content : 0,
+          totalUser : totalUser.status == "ok" ? totalUser.content : 0,
+          totalSong : totalSong.status == "ok" ? totalSong.content : 0,
+          totalListen : totalListen.status == "ok" ? totalListen.content : 0
         }
       })
     })()

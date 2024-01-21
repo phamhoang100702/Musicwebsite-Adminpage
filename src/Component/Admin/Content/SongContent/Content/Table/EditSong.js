@@ -56,7 +56,7 @@ const EditSong = ({ record }) => {
   const song_edit = record;
   const audioRef = useRef();
   const [form] = Form.useForm();
-  console.log( "di vao day ",record);
+  // console.log( "di vao day ",record);
 
   const showDrawer = () => {
     setOpen(true);
@@ -68,8 +68,8 @@ const EditSong = ({ record }) => {
   };
 
   const onFinish = (values) => {
-    console.log("edit");
-    console.log(values);
+    // console.log("edit");
+    // console.log(values);
     const updateSongData = async () => {
       let songUpdate;
       const singers = handleSinger(values.song.singers);
@@ -91,8 +91,8 @@ const EditSong = ({ record }) => {
           ...songUpdate,
           fileSound: url,
         };
-        console.log("accept");
-        console.log(songUpdate);
+        // console.log("accept");
+        // console.log(songUpdate);
       }
 
       const nData = await updateSong(songUpdate);

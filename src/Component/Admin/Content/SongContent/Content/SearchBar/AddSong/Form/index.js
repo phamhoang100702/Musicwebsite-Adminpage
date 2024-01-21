@@ -19,7 +19,7 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 const handleSinger = (singers)=>{
-  console.log(singers)
+  // console.log(singers)
   const arr = singers.map((singer)=>{
     const arr1 = singer.split(";");
     return {
@@ -58,13 +58,11 @@ const AddForm = ({ onSubmit }) => {
     form1.append("sound", files["sound"]);
     form1.append("lyric", files["lyric"]);
     form1.append("avatar", files["avatar"]);
-    console.log(values)
     const saveSongData = async () => {
       const object = await uploadFileSound(form1);
       let ct = object.content;
       const singers = handleSinger(values.song.singers);
       const categories = handleCategory(values.song.categories);
-      console.log(ct);
       const newSong = {
         ...values.song,
         'fileSound' : ct.sound,
@@ -73,19 +71,15 @@ const AddForm = ({ onSubmit }) => {
         'singers' : singers,
         'categories' : categories
       }
-      console.log(newSong)
       const obj = await saveSong(newSong);
       
       const objToTable = await getSongById(obj.content.id)
-      console.log("after add : ")
-      console.log(objToTable.content)
       dispatch(addSong(objToTable.content))
     };
     
     saveSongData();
 
     onSubmit();
-    console.log(form);
 
     form.setFieldsValue({
       song: {
@@ -168,7 +162,7 @@ const AddForm = ({ onSubmit }) => {
   }, []);
 
   useEffect(() => {
-    console.log(listSinger);
+    // console.log(listSinger);
     const data = listSinger.map((singer) => {
       return {
         value: singer.nickName + ";" + singer.id,
@@ -177,7 +171,7 @@ const AddForm = ({ onSubmit }) => {
         desc: singer.nickName + "(" + singer.name + ")",
       };
     });
-    console.log(data);
+    // console.log(data);
     setOptions([...data]);
   }, [listSinger]);
 
@@ -190,7 +184,7 @@ const AddForm = ({ onSubmit }) => {
         desc: category.name,
       };
     });
-    console.log(data);
+    // console.log(data);
     setOptionCategory([...data]);
   }, [listCategory]);
 

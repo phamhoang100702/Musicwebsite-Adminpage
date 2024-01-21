@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Button, Card, Space, Table, Drawer, Tag, Popconfirm } from "antd";
 import Search from "antd/es/input/Search";
 import FormAdd from "./FormAdd";
@@ -8,7 +8,10 @@ import {
   deleteSingerById,
 } from "../../../../services/api/singer";
 import { getLocalStorage } from "../../../../services/localstorage";
-
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { decode } from "../../../../services/api/auth";
+import { setAuth } from "../../../../redux/actions/auth";
 // const handleDelete = () => {};
 const columns = [
   {
@@ -97,7 +100,10 @@ export const OverviewSinger = () => {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  let authData = useSelector((state) => state.authReducer.authData);
   const showDrawer = () => {
     setOpen(true);
   };
@@ -136,7 +142,7 @@ export const OverviewSinger = () => {
     (async () => {
       const data1 = await getSingerByNameAndNickName(search);
       const singers = data1.content;
-      console.log(singers);
+      // console.log(singers);
       const arr = singers.map((singer, index) => {
         return {
           ...singer,
@@ -145,15 +151,34 @@ export const OverviewSinger = () => {
           onEdit: handleEdit,
         };
       });
-      console.log("chay vao day");
+      // console.log("chay vao day");
       // console.log(arr)
-     setData([...arr]);
+      setData([...arr]);
     })();
   }
 
   useEffect(() => {
     fetch();
   }, [search]);
+  useLayoutEffect(() => {
+    if (getLocalStorage("user-token") != "") {
+      if (authData == null) {
+        (async () => {
+          const data = await decode(getLocalStorage("user-token"));
+          if(data.status!="ok"){
+            window.location.replace("http://localhost:9100/");
+            return;
+          } 
+         else  dispatch(setAuth(data.content));
+        })();
+      }
+      fetch();
+    } else {
+      navigate("/");
+      window.location.reload();
+      return;
+    }
+  }, []);
   return (
     <>
       <Card

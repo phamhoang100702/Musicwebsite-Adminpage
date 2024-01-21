@@ -36,7 +36,7 @@ const FormEdit = ({ record }) => {
       };
       const user1 = await updateUser(user);
       const content = user1.content;
-      console.log(content)
+      // console.log(content)
       // record.handleEdit
       record = {
         ...record,

@@ -19,10 +19,10 @@ const FormAdd = ({ handleAdd, onClose }) => {
   const [form] = Form.useForm();
   const onFinish = (values) => {
     // let songSubmi
-    console.log(values.user);
+    // console.log(values.user);
     (async()=>{
       const newUser = await registerUser(values.user);
-      console.log(newUser)
+      // console.log(newUser)
       handleAdd(newUser.content);
     })()
     form.setFieldsValue({

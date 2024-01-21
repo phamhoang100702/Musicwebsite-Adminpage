@@ -30,13 +30,13 @@ const FormEdit = ({ record }) => {
     // let songSubmi
     (async () => {
       const temp = values.singer;
-      console.log(temp)
+      // console.log(temp)
       const singer = {
         ...temp,
         id: record.id,
       };
       const singer1 = await updateSinger(singer);
-      console.log(singer1)
+      // console.log(singer1)
       const content = singer1.content;
       // record.handleEdit
       record = {

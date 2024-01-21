@@ -10,7 +10,7 @@ const TopSinger = () => {
       setData((await getTopSinger(10)).content);
     })();
   }, []);
-  console.log("avata>>>>>>>>", data);
+  // console.log("avata>>>>>>>>", data);
   return (
     <List
       itemLayout="horizontal"

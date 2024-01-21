@@ -5,6 +5,7 @@ import drawerReducerAddNew from "./Drawer/AddNew";
 import { drawerReducerEdit } from "./Drawer/Edit";
 import { sortReducer } from "./Sort";
 import listSongReducer from "./Song/listSong";
+import authReducer from "./auth"
 import searchSongReducer from "./Song/search";
 
 export const allReducers = combineReducers({
@@ -14,4 +15,5 @@ export const allReducers = combineReducers({
   getDataCensor: dataCensorReducer,
   sortReducer: sortReducer,
   listSongReducer : listSongReducer,
+  authReducer : authReducer 
 });

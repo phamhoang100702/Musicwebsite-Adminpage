@@ -17,7 +17,7 @@ const FormAdd = ({ handleAdd, onClose }) => {
   const [form] = Form.useForm();
   const onFinish = (values) => {
     // let songSubmi
-    console.log(values.censor);
+    // console.log(values.censor);
     if (values.censor.status == null) {
       values.censor.status = true;
     }
@@ -32,7 +32,7 @@ const FormAdd = ({ handleAdd, onClose }) => {
     }
     (async () => {
       const newUser = await registerCensor(values.censor);
-      console.log(newUser);
+      // console.log(newUser);
       handleAdd(newUser.content);
     })();
     form.setFieldsValue({
