@@ -130,7 +130,7 @@ const FormEdit = ({ record }) => {
                   },
                 ]}
               >
-                <Input disabled={true}/>
+                <Input />
               </Form.Item>
             </Col>
             <Col>
@@ -138,7 +138,7 @@ const FormEdit = ({ record }) => {
                 name={["censor", "password"]}
                 label="Password"
               >
-                <Password disabled={true} />
+                <Password  />
               </Form.Item>
             </Col>
           </Row>
@@ -149,7 +149,7 @@ const FormEdit = ({ record }) => {
                 name={["censor", "phone"]}
                 label="phone"
               >
-                <Input disabled={true}/>
+                <Input />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -158,7 +158,7 @@ const FormEdit = ({ record }) => {
                 label="Address"
 
               >
-                <Input disabled={true}/>
+                <Input />
               </Form.Item>
             </Col>
           </Row>

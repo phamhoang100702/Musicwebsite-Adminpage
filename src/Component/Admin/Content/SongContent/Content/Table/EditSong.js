@@ -213,28 +213,28 @@ const EditSong = ({ record }) => {
           onFinish={onFinish}
           validateMessages={validateMessages}
           layout="vertical"
-          initialValues={{
-            song: {
-              name: song_edit.name,
-              status: song_edit.status,
-              singers: song_edit.singers.map((singer) => {
-                return {
-                  value: singer.nickName + ";" + singer.id,
-                  label: singer.nickName,
-                  key: singer.id,
-                  desc: singer.nickName + "(" + singer.name + ")",
-                };
-              }),
-              categories: song_edit.categories.map((category) => {
-                return {
-                  value: category.name + ";" + category.id,
-                  label: category.name,
-                  key: category.id,
-                  desc: category.name,
-                };
-              }),
-            },
-          }}
+          // initialValues={{
+          //   song: {
+          //     name: song_edit.name,
+          //     status: song_edit.status,
+          //     singers: song_edit.singers.map((singer) => {
+          //       return {
+          //         value: singer.nickName + ";" + singer.id,
+          //         label: singer.nickName,
+          //         key: singer.id,
+          //         desc: singer.nickName + "(" + singer.name + ")",
+          //       };
+          //     }),
+          //     categories: song_edit.categories.map((category) => {
+          //       return {
+          //         value: category.name + ";" + category.id,
+          //         label: category.name,
+          //         key: category.id,
+          //         desc: category.name,
+          //       };
+          //     }),
+          //   },
+          // }}
         >
           <Row gutter={16}>
             <Col span={12}>
