@@ -50,7 +50,6 @@ const Login = () => {
         else if(authInfo.content.role == 4){
           if(authInfo.content.status){
             alert("Login success");
-            setLocalStorage("user-token",jwt.content.token);
             window.location.replace("http://localhost:9200/censor-overview");
           }
           else{
@@ -77,7 +76,13 @@ const Login = () => {
       (async()=>{
         const data = await decode(getLocalStorage("user-token"));
         if(data.status=="ok"){
-          navigate("admin-statistical")
+          if(data.content.role==0){
+            navigate("admin-statistical")
+          }
+          // else (data.content.role == 4)
+          // {
+          //   window.location.replace("http://localhost:9200/censor-overview")
+          // }
         }
       })()
     }
